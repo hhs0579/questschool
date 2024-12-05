@@ -52,6 +52,8 @@ dev_dependencies:
   firebase_core:
   cloud_firestore:
   flutter_svg:
+  url_launcher:
+  youtube_player_iframe:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
