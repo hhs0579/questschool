@@ -6,6 +6,9 @@ import 'package:quest/pages/Desktop/desktop2.dart';
 import 'package:quest/pages/Desktop/desktop3.dart';
 import 'package:quest/pages/Desktop/desktop4.dart';
 import 'package:quest/pages/Desktop/desktop5.dart';
+import 'package:quest/pages/Desktop/desktop6.dart';
+import 'package:quest/pages/Desktop/desktop7.dart';
+import 'package:quest/pages/Desktop/desktop8.dart';
 import 'package:quest/pages/Phone/phone1.dart';
 
 class mainPage extends StatelessWidget {
@@ -38,7 +41,10 @@ class mainPage extends StatelessWidget {
             Desktop2(),
             Desktop3(),
             Desktop4(),
-          Desktop5()
+            Desktop5(),
+            Desktop6(),
+            Desktop7(),
+            Desktop8()
           ],
         ),
       ),

@@ -169,7 +169,7 @@ class _Desktop1State extends State<Desktop1> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            '편리하고 안전하게 상담기록 관리하기🗂️',
+                            '편리하고 안전하게 상담기록 관리하기',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
