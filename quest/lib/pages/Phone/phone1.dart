@@ -38,9 +38,16 @@ class _Phone1State extends State<Phone1> {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: SvgPicture.asset(
-                    'assets/images/phone1.svg',
+                  child: Image.asset(
+                    'assets/images/pback.png',
                     fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                  ),
+                ),
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/images/phone1.png',
+                    fit: BoxFit.contain,
                     alignment: Alignment.center,
                   ),
                 ),

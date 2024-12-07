@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quest/components/color.dart';
 import 'package:quest/components/painter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quest/widget/review.dart';
 
 class Desktop8 extends StatefulWidget {
   const Desktop8({super.key});
@@ -80,9 +81,10 @@ class _Desktop8State extends State<Desktop8> {
                       ),
                     ),
                     SizedBox(
-                      height: 23,
+                      height: 44,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
                           children: [
@@ -142,7 +144,11 @@ class _Desktop8State extends State<Desktop8> {
                               ),
                             )
                           ],
-                        )
+                        ),
+                        SizedBox(
+                          width: 77,
+                        ),
+                        ReviewsSection()
                       ],
                     )
                   ],

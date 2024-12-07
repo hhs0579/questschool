@@ -17,8 +17,8 @@ class Desktop4 extends StatelessWidget {
               minHeight: MediaQuery.of(context).size.height,
             ),
             width: MediaQuery.of(context).size.width,
-            child: SvgPicture.asset(
-              'assets/images/desk4.svg',
+            child: Image.asset(
+              'assets/images/desk4.png',
               fit: BoxFit.contain,
             ),
           );

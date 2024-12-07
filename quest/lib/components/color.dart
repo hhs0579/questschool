@@ -11,6 +11,6 @@ class AppColor {
   static const Color line1 = Color(0xFFE5E5EC);
   static const Color line2 = Color(0xFFF1F1F5);
   //배경 컬러
-  static const Color back1 = Color(0xFFF1F1F5);
+  static const Color grey1 = Color(0xFF93969B);
   static const Color back2 = Color(0xFFF7F7FB);
 }

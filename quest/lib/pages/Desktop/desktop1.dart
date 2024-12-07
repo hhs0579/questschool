@@ -36,6 +36,7 @@ class _Desktop1State extends State<Desktop1> {
             ),
             width: MediaQuery.of(context).size.width,
             child: Stack(
+              alignment: Alignment.center,
               children: [
                 Positioned.fill(
                   // 전체 화면을 채우는 SVG 배경
@@ -47,10 +48,13 @@ class _Desktop1State extends State<Desktop1> {
                 ),
                 Positioned.fill(
                   // 전체 화면을 채우는 SVG 배경
-                  child: SvgPicture.asset(
-                    'assets/images/main.svg', // SVG 파일 경로
-                    fit: BoxFit.contain,
-                    alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 100),
+                    child: Image.asset(
+                      'assets/images/desk1.png', // SVG 파일 경로
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                    ),
                   ),
                 ),
                 Center(
@@ -154,7 +158,7 @@ class _Desktop1State extends State<Desktop1> {
                   ),
                 ),
                 Positioned(
-                  bottom: 28,
+                  bottom: 38,
                   left: (MediaQuery.of(context).size.width - 970) / 2,
                   child: Container(
                     width: 970,
