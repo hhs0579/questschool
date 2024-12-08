@@ -106,6 +106,7 @@ class ReviewsSection extends StatelessWidget {
           return Stack(
             children: [
               SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -115,24 +116,6 @@ class ReviewsSection extends StatelessWidget {
                             description: review['description']!,
                           ))
                       .toList(),
-                ),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                bottom: 0,
-                child: Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        Colors.white.withOpacity(0.0),
-                        Colors.white,
-                      ],
-                    ),
-                  ),
                 ),
               ),
             ],

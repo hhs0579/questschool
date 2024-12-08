@@ -37,7 +37,7 @@ class Responsive {
 }
 
 // 반응형 위젯 래퍼
-class ResponsiveLayout extends StatelessWidget {
+class ResponsiveLayout extends StatefulWidget {
   final Widget mobile;
   final Widget? tablet;
   final Widget desktop;
@@ -50,36 +50,31 @@ class ResponsiveLayout extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ResponsiveLayout> createState() => _ResponsiveLayoutState();
+}
+
+class _ResponsiveLayoutState extends State<ResponsiveLayout> {
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= ScreenSize.desktop) {
-          return desktop;
+          return KeyedSubtree(
+            key: const ValueKey('desktop_view'),
+            child: widget.desktop,
+          );
         }
         if (constraints.maxWidth >= ScreenSize.mobile) {
-          return tablet ?? mobile;
+          return KeyedSubtree(
+            key: const ValueKey('tablet_view'),
+            child: widget.tablet ?? widget.mobile,
+          );
         }
-        return mobile;
+        return KeyedSubtree(
+          key: const ValueKey('mobile_view'),
+          child: widget.mobile,
+        );
       },
     );
-  }
-}
-
-// 반응형 값 선택 유틸리티
-class ResponsiveValue<T> {
-  final T mobile;
-  final T? tablet;
-  final T desktop;
-
-  const ResponsiveValue({
-    required this.mobile,
-    this.tablet,
-    required this.desktop,
-  });
-
-  T get(BuildContext context) {
-    if (Responsive.isDesktop(context)) return desktop;
-    if (Responsive.isTablet(context)) return tablet ?? mobile;
-    return mobile;
   }
 }

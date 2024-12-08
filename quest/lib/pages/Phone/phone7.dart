@@ -29,7 +29,7 @@ class Phone7 extends StatelessWidget {
                   Text(
                     '현직 진로 선생님들의 이야기에',
                     style: TextStyle(
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w600,
                         fontSize: 20,
                         color: Colors.black),
                   ),
@@ -55,7 +55,7 @@ class Phone7 extends StatelessWidget {
                         color: Colors.black),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 16,
                   ),
                   Container(
                     width: 192,
@@ -73,7 +73,10 @@ class Phone7 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const ImageSlider2(),
+                     const SizedBox(
+                    height: 16,
+                  ),
+                  Expanded(child: const ImageSlider2()),
                 ],
               ),
             ),

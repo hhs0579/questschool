@@ -83,931 +83,910 @@ class _Phone5State extends State<Phone5> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
             child: Container(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height,
-              ),
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
               width: MediaQuery.of(context).size.width,
               child: Stack(children: [
-                Positioned.fill(
-                  // 전체 화면을 채우는 SVG 배경
-                  child: Image.asset(
-                    'assets/images/back3.png', // SVG 파일 경로
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                  ),
+                // 전체 화면을 채우는 SVG 배경
+                Image.asset(
+                  'assets/images/back3.png', // SVG 파일 경로
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
                 ),
+
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Positioned(
-                    top: 40,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 60,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '상담 예약부터',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.black),
-                                ),
-                                Text(
-                                  '상담 기록 관리, 결과보고서까지',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.black),
-                                ),
-                                const Text.rich(
-                                  TextSpan(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 60,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '상담 예약부터',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.black),
+                              ),
+                              Text(
+                                '상담 기록 관리, 결과보고서까지',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.black),
+                              ),
+                              const Text.rich(
+                                TextSpan(
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w800,
+                                        color: Colors.black),
+                                    children: [
+                                      TextSpan(
+                                          text: '퀘스트 스쿨 ',
+                                          style:
+                                              TextStyle(color: AppColor.font1)),
+                                      TextSpan(text: '하나로 끝!')
+                                    ]),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              InkWell(
+                                onTap: () => _showVideoDialog(context),
+                                child: Container(
+                                  width: 215,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.font1,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      '튜토리얼 영상 보기',
                                       style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w800,
-                                          color: Colors.black),
-                                      children: [
-                                        TextSpan(
-                                            text: '퀘스트 스쿨 ',
-                                            style: TextStyle(
-                                                color: AppColor.font1)),
-                                        TextSpan(text: '하나로 끝!')
-                                      ]),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                InkWell(
-                                  onTap: () => _showVideoDialog(context),
-                                  child: Container(
-                                    width: 215,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      color: AppColor.font1,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        '튜토리얼 영상 보기',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white),
-                                      ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 56,
-                                ),
-                                a
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
+                              ),
+                              const SizedBox(
+                                height: 56,
+                              ),
+                              a
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: const Color(
+                                                            0xffDFDFDF)),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            99),
+                                                    color: AppColor.font1,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: AppColor.font1
+                                                            .withOpacity(0.4),
+                                                        spreadRadius: 5,
+                                                        blurRadius: 4,
+                                                        offset:
+                                                            const Offset(0, 0),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 312,
+                                                  width: 2,
+                                                  color: AppColor.font1,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(width: 20),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  '상담 요청 관리',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.black),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              top: 8),
+                                                      height: 5,
+                                                      width: 5,
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xff414042),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      99)),
+                                                    ),
+                                                    const SizedBox(width: 5),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        const Text.rich(
+                                                          TextSpan(
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 16,
+                                                                color: Color(
+                                                                    0xff414042)),
+                                                            children: [
+                                                              TextSpan(
+                                                                  text:
+                                                                      '상담·상담확인서 요청 확인 및\n'),
+                                                              TextSpan(
+                                                                  text:
+                                                                      '수락·거절·취소 등 전반적인 상담 관리 '),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 14,
+                                                        ),
+                                                        Container(
+                                                            width: 290,
+                                                            height: 244.5,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/computer_1.svg',
+                                                              fit: BoxFit.cover,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = !a;
+                                              b = false;
+                                              c = false;
+                                              d = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_up,
+                                            size: 30,
+                                            color: Colors.black,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: const Color(
                                                               0xffDFDFDF)),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               99),
-                                                      color: AppColor.font1,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: AppColor.font1
-                                                              .withOpacity(0.4),
-                                                          spreadRadius: 5,
-                                                          blurRadius: 4,
-                                                          offset: const Offset(
-                                                              0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 312,
-                                                    width: 2,
+                                                      color:
+                                                          Colors.transparent),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 36,
+                                                  width: 2,
+                                                  color:
+                                                      const Color(0xff93969B),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(width: 20),
+                                            const Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '상담 요청 관리',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Color(0xff93969B)),
+                                                ),
+                                                SizedBox(height: 16),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = !a;
+                                              b = false;
+                                              c = false;
+                                              d = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_down,
+                                            size: 30,
+                                            color: Color(0xff93969B),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              b
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: const Color(
+                                                            0xffDFDFDF)),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            99),
                                                     color: AppColor.font1,
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    '상담 요청 관리',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.black),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Container(
-                                                        margin: const EdgeInsets
-                                                            .only(top: 8),
-                                                        height: 5,
-                                                        width: 5,
-                                                        decoration: BoxDecoration(
-                                                            color: const Color(
-                                                                0xff414042),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        99)),
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          const Text.rich(
-                                                            TextSpan(
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Color(
-                                                                      0xff414042)),
-                                                              children: [
-                                                                TextSpan(
-                                                                    text:
-                                                                        '상담·상담확인서 요청 확인 및\n'),
-                                                                TextSpan(
-                                                                    text:
-                                                                        '수락·거절·취소 등 전반적인 상담 관리 '),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 14,
-                                                          ),
-                                                          Container(
-                                                              width: 290,
-                                                              height: 244.5,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/images/computer_1.svg',
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              )),
-                                                        ],
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: AppColor.font1
+                                                            .withOpacity(0.4),
+                                                        spreadRadius: 5,
+                                                        blurRadius: 4,
+                                                        offset:
+                                                            const Offset(0, 0),
                                                       ),
                                                     ],
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = !a;
-                                                b = false;
-                                                c = false;
-                                                d = false;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_up,
-                                              size: 30,
-                                              color: Colors.black,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 312,
+                                                  width: 2,
+                                                  color: AppColor.font1,
+                                                ),
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xffDFDFDF)),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99),
-                                                        color:
-                                                            Colors.transparent),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 36,
-                                                    width: 2,
-                                                    color:
-                                                        const Color(0xff93969B),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              const Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '상담 요청 관리',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color:
-                                                            Color(0xff93969B)),
-                                                  ),
-                                                  SizedBox(height: 16),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = !a;
-                                                b = false;
-                                                c = false;
-                                                d = false;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_down,
-                                              size: 30,
-                                              color: Color(0xff93969B),
+                                            const SizedBox(width: 20),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  '상담 요청 관리',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.black),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              top: 8),
+                                                      height: 5,
+                                                      width: 5,
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xff414042),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      99)),
+                                                    ),
+                                                    const SizedBox(width: 5),
+                                                    Column(
+                                                      children: [
+                                                        const Text.rich(
+                                                          TextSpan(
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 16,
+                                                                color: Color(
+                                                                    0xff414042)),
+                                                            children: [
+                                                              TextSpan(
+                                                                  text:
+                                                                      '학생이 작성한 상담 요청 주제와 상담\n'),
+                                                              TextSpan(
+                                                                  text:
+                                                                      '내용 확인 가능'),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                            width: 290,
+                                                            height: 244.5,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/computer_2.svg',
+                                                              fit: BoxFit.cover,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
                                             ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = false;
+                                              b = !b;
+                                              c = false;
+                                              d = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_up,
+                                            size: 30,
+                                            color: Colors.black,
                                           ),
-                                        ],
-                                      ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                b
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: const Color(
                                                               0xffDFDFDF)),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               99),
-                                                      color: AppColor.font1,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: AppColor.font1
-                                                              .withOpacity(0.4),
-                                                          spreadRadius: 5,
-                                                          blurRadius: 4,
-                                                          offset: const Offset(
-                                                              0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 312,
-                                                    width: 2,
+                                                      color:
+                                                          Colors.transparent),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 36,
+                                                  width: 2,
+                                                  color:
+                                                      const Color(0xff93969B),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(width: 20),
+                                            const Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '상담 내용 상세 확인',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Color(0xff93969B)),
+                                                ),
+                                                SizedBox(height: 16),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = false;
+                                              b = !b;
+                                              c = false;
+                                              d = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_down,
+                                            size: 30,
+                                            color: Color(0xff93969B),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              c
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: const Color(
+                                                            0xffDFDFDF)),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            99),
                                                     color: AppColor.font1,
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    '상담 요청 관리',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.black),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Container(
-                                                        margin: const EdgeInsets
-                                                            .only(top: 8),
-                                                        height: 5,
-                                                        width: 5,
-                                                        decoration: BoxDecoration(
-                                                            color: const Color(
-                                                                0xff414042),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        99)),
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      Column(
-                                                        children: [
-                                                          const Text.rich(
-                                                            TextSpan(
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Color(
-                                                                      0xff414042)),
-                                                              children: [
-                                                                TextSpan(
-                                                                    text:
-                                                                        '학생이 작성한 상담 요청 주제와 상담\n'),
-                                                                TextSpan(
-                                                                    text:
-                                                                        '내용 확인 가능'),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                              width: 290,
-                                                              height: 244.5,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/images/computer_2.svg',
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              )),
-                                                        ],
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: AppColor.font1
+                                                            .withOpacity(0.4),
+                                                        spreadRadius: 5,
+                                                        blurRadius: 4,
+                                                        offset:
+                                                            const Offset(0, 0),
                                                       ),
                                                     ],
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = false;
-                                                b = !b;
-                                                c = false;
-                                                d = false;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_up,
-                                              size: 30,
-                                              color: Colors.black,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 312,
+                                                  width: 2,
+                                                  color: AppColor.font1,
+                                                ),
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xffDFDFDF)),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99),
-                                                        color:
-                                                            Colors.transparent),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 36,
-                                                    width: 2,
-                                                    color:
-                                                        const Color(0xff93969B),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              const Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '상담 내용 상세 확인',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color:
-                                                            Color(0xff93969B)),
-                                                  ),
-                                                  SizedBox(height: 16),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = false;
-                                                b = !b;
-                                                c = false;
-                                                d = false;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_down,
-                                              size: 30,
-                                              color: Color(0xff93969B),
+                                            const SizedBox(width: 20),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  '학생 진로심리검사 내용 확인',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.black),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              top: 8),
+                                                      height: 5,
+                                                      width: 5,
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xff414042),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      99)),
+                                                    ),
+                                                    const SizedBox(width: 5),
+                                                    Column(
+                                                      children: [
+                                                        const Text.rich(
+                                                          TextSpan(
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 16,
+                                                                color: Color(
+                                                                    0xff414042)),
+                                                            children: [
+                                                              TextSpan(
+                                                                  text:
+                                                                      '상담 전, 학생이 실시한 진로심리검사\n'),
+                                                              TextSpan(
+                                                                  text:
+                                                                      '내용을 확인하여 학생별 특성을 고려한\n'),
+                                                              TextSpan(
+                                                                  text:
+                                                                      '상담준비\n '),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                            width: 290,
+                                                            height: 244.5,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/computer_3.svg',
+                                                              fit: BoxFit.cover,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
                                             ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = false;
+                                              b = false;
+                                              c = !c;
+                                              d = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_up,
+                                            size: 30,
+                                            color: Colors.black,
                                           ),
-                                        ],
-                                      ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                c
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: const Color(
                                                               0xffDFDFDF)),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               99),
-                                                      color: AppColor.font1,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: AppColor.font1
-                                                              .withOpacity(0.4),
-                                                          spreadRadius: 5,
-                                                          blurRadius: 4,
-                                                          offset: const Offset(
-                                                              0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 312,
-                                                    width: 2,
+                                                      color:
+                                                          Colors.transparent),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 36,
+                                                  width: 2,
+                                                  color:
+                                                      const Color(0xff93969B),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(width: 20),
+                                            const Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '학생 진로심리검사 내용 확인',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Color(0xff93969B)),
+                                                ),
+                                                SizedBox(height: 16),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = false;
+                                              b = false;
+                                              c = !c;
+                                              d = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_down,
+                                            size: 30,
+                                            color: Color(0xff93969B),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              d
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: const Color(
+                                                            0xffDFDFDF)),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            99),
                                                     color: AppColor.font1,
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    '학생 진로심리검사 내용 확인',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.black),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Container(
-                                                        margin: const EdgeInsets
-                                                            .only(top: 8),
-                                                        height: 5,
-                                                        width: 5,
-                                                        decoration: BoxDecoration(
-                                                            color: const Color(
-                                                                0xff414042),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        99)),
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      Column(
-                                                        children: [
-                                                          const Text.rich(
-                                                            TextSpan(
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Color(
-                                                                      0xff414042)),
-                                                              children: [
-                                                                TextSpan(
-                                                                    text:
-                                                                        '상담 전, 학생이 실시한 진로심리검사\n'),
-                                                                TextSpan(
-                                                                    text:
-                                                                        '내용을 확인하여 학생별 특성을 고려한\n'),
-                                                                TextSpan(
-                                                                    text:
-                                                                        '상담준비\n '),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                              width: 290,
-                                                              height: 244.5,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/images/computer_3.svg',
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              )),
-                                                        ],
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: AppColor.font1
+                                                            .withOpacity(0.4),
+                                                        spreadRadius: 5,
+                                                        blurRadius: 4,
+                                                        offset:
+                                                            const Offset(0, 0),
                                                       ),
                                                     ],
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = false;
-                                                b = false;
-                                                c = !c;
-                                                d = false;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_up,
-                                              size: 30,
-                                              color: Colors.black,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 312,
+                                                  width: 2,
+                                                  color: AppColor.font1,
+                                                ),
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xffDFDFDF)),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99),
-                                                        color:
-                                                            Colors.transparent),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 36,
-                                                    width: 2,
-                                                    color:
-                                                        const Color(0xff93969B),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              const Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '학생 진로심리검사 내용 확인',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color:
-                                                            Color(0xff93969B)),
-                                                  ),
-                                                  SizedBox(height: 16),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = false;
-                                                b = false;
-                                                c = !c;
-                                                d = false;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_down,
-                                              size: 30,
-                                              color: Color(0xff93969B),
+                                            const SizedBox(width: 20),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  '상담 후 내용 정리',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.black),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              top: 8),
+                                                      height: 5,
+                                                      width: 5,
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(
+                                                              0xff414042),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      99)),
+                                                    ),
+                                                    const SizedBox(width: 5),
+                                                    Column(
+                                                      children: [
+                                                        const Text.rich(
+                                                          TextSpan(
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 16,
+                                                                color: Color(
+                                                                    0xff414042)),
+                                                            children: [
+                                                              TextSpan(
+                                                                  text:
+                                                                      '상담 후 내용 정리하고 다운로드\n'),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                            width: 290,
+                                                            height: 244.5,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/computer_4.svg',
+                                                              fit: BoxFit.cover,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
                                             ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = false;
+                                              b = false;
+                                              c = false;
+                                              d = !d;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_up,
+                                            size: 30,
+                                            color: Colors.black,
                                           ),
-                                        ],
-                                      ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                d
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: const Color(
                                                               0xffDFDFDF)),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               99),
-                                                      color: AppColor.font1,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: AppColor.font1
-                                                              .withOpacity(0.4),
-                                                          spreadRadius: 5,
-                                                          blurRadius: 4,
-                                                          offset: const Offset(
-                                                              0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 312,
-                                                    width: 2,
-                                                    color: AppColor.font1,
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    '상담 후 내용 정리',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.black),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Container(
-                                                        margin: const EdgeInsets
-                                                            .only(top: 8),
-                                                        height: 5,
-                                                        width: 5,
-                                                        decoration: BoxDecoration(
-                                                            color: const Color(
-                                                                0xff414042),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        99)),
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      Column(
-                                                        children: [
-                                                          const Text.rich(
-                                                            TextSpan(
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Color(
-                                                                      0xff414042)),
-                                                              children: [
-                                                                TextSpan(
-                                                                    text:
-                                                                        '상담 후 내용 정리하고 다운로드\n'),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                              width: 290,
-                                                              height: 244.5,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/images/computer_4.svg',
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              )),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = false;
-                                                b = false;
-                                                c = false;
-                                                d = !d;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_up,
-                                              size: 30,
-                                              color: Colors.black,
+                                                      color:
+                                                          Colors.transparent),
+                                                ),
+                                                const SizedBox(height: 16),
+                                                Container(
+                                                  height: 36,
+                                                  width: 2,
+                                                  color:
+                                                      const Color(0xff93969B),
+                                                ),
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xffDFDFDF)),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99),
-                                                        color:
-                                                            Colors.transparent),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Container(
-                                                    height: 36,
-                                                    width: 2,
-                                                    color:
-                                                        const Color(0xff93969B),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(width: 20),
-                                              const Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '상담 후 내용 정리',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color:
-                                                            Color(0xff93969B)),
-                                                  ),
-                                                  SizedBox(height: 16),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                a = false;
-                                                b = false;
-                                                c = false;
-                                                d = !d;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.keyboard_arrow_down,
-                                              size: 30,
-                                              color: Color(0xff93969B),
+                                            const SizedBox(width: 20),
+                                            const Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '상담 후 내용 정리',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Color(0xff93969B)),
+                                                ),
+                                                SizedBox(height: 16),
+                                              ],
                                             ),
+                                          ],
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              a = false;
+                                              b = false;
+                                              c = false;
+                                              d = !d;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.keyboard_arrow_down,
+                                            size: 30,
+                                            color: Color(0xff93969B),
                                           ),
-                                        ],
-                                      ),
-                              ]),
-                        ),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        // if (a) SvgPicture.asset('assets/images/computer_1.svg'),
-                        // if (b) SvgPicture.asset('assets/images/computer_2.svg'),
-                        // if (c) SvgPicture.asset('assets/images/computer_3.svg'),
-                        // if (d) SvgPicture.asset('assets/images/computer_4.svg'),
-                      ],
-                    ),
+                                        ),
+                                      ],
+                                    ),
+                            ]),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      // if (a) SvgPicture.asset('assets/images/computer_1.svg'),
+                      // if (b) SvgPicture.asset('assets/images/computer_2.svg'),
+                      // if (c) SvgPicture.asset('assets/images/computer_3.svg'),
+                      // if (d) SvgPicture.asset('assets/images/computer_4.svg'),
+                    ],
                   ),
                 )
               ]),

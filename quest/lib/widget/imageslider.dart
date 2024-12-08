@@ -289,8 +289,7 @@ class _ImageSlider2State extends State<ImageSlider2>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ConstrainedBox(
+    return ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 470),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -299,7 +298,7 @@ class _ImageSlider2State extends State<ImageSlider2>
             Stack(
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width,
                   height: 251,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -329,7 +328,7 @@ class _ImageSlider2State extends State<ImageSlider2>
             Stack(
               children: [
                 Container(
-                  width: 223,
+                  width: MediaQuery.of(context).size.width - 112,
                   height: 167.5,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -361,7 +360,7 @@ class _ImageSlider2State extends State<ImageSlider2>
                         end: Alignment.topCenter,
                         colors: [
                           Colors.white,
-                          Colors.white.withOpacity(0.2),
+                          Colors.white.withOpacity(0),
                         ],
                       ),
                     ),
@@ -371,7 +370,8 @@ class _ImageSlider2State extends State<ImageSlider2>
             ),
           ],
         ),
-      ),
+      
+    
     );
   }
 }

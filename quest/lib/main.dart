@@ -20,6 +20,6 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Pretendard',
         ),
         scrollBehavior: MyCustomScrollBehavior(),
-        home: mainPage());
+        home: MainPage());
   }
 }
