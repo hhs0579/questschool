@@ -15,6 +15,9 @@ import 'package:quest/pages/Phone/phone1.dart';
 import 'package:quest/pages/Phone/phone2.dart';
 import 'package:quest/pages/Phone/phone3.dart';
 import 'package:quest/pages/Phone/phone4.dart';
+import 'package:quest/pages/Phone/phone5.dart';
+import 'package:quest/pages/Phone/phone6.dart';
+import 'package:quest/pages/Phone/phone7.dart';
 
 class mainPage extends StatelessWidget {
   mainPage({super.key});
@@ -36,6 +39,9 @@ class mainPage extends StatelessWidget {
             Phone2(),
             Phone3(),
             Phone4(),
+            Phone5(),
+            Phone6(),
+            Phone7()
           ],
         ),
         desktop: PageView(

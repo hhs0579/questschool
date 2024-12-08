@@ -82,41 +82,49 @@ class _Phone5State extends State<Phone5> {
       backgroundColor: const Color(0xffFFFFFF),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          return Container(
+          return SingleChildScrollView(
+            child: Container(
               constraints: BoxConstraints(
                 minHeight: MediaQuery.of(context).size.height,
               ),
               width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                child: Stack(children: [
-                  Positioned.fill(
-                    // 전체 화면을 채우는 SVG 배경
-                    child: Image.asset(
-                      'assets/images/back3.png', // SVG 파일 경로
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                    ),
+              child: Stack(children: [
+                Positioned.fill(
+                  // 전체 화면을 채우는 SVG 배경
+                  child: Image.asset(
+                    'assets/images/back3.png', // SVG 파일 경로
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
                   ),
-                  Positioned(
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Positioned(
                     top: 40,
-                    child: Row(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 425,
+                          height: 60,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
                           child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Text.rich(
-                                  TextSpan(
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w800,
-                                          color: Colors.black),
-                                      children: [
-                                        TextSpan(text: '상담 예약부터\n'),
-                                        TextSpan(text: '상담 기록 관리, 결과보고서까지')
-                                      ]),
+                                Text(
+                                  '상담 예약부터',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.black),
+                                ),
+                                Text(
+                                  '상담 기록 관리, 결과보고서까지',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.black),
                                 ),
                                 const Text.rich(
                                   TextSpan(
@@ -160,97 +168,126 @@ class _Phone5State extends State<Phone5> {
                                 ),
                                 a
                                     ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: const Color(
-                                                          0xffDFDFDF)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(99),
-                                                  color: AppColor.font1,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppColor.font1
-                                                          .withOpacity(0.4),
-                                                      spreadRadius: 5,
-                                                      blurRadius: 4,
-                                                      offset:
-                                                          const Offset(0, 0),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 95,
-                                                width: 2,
-                                                color: AppColor.font1,
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(width: 20),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                '상담 요청 관리',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.black),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Column(
                                                 children: [
                                                   Container(
                                                     margin:
                                                         const EdgeInsets.only(
-                                                            top: 8),
-                                                    height: 5,
-                                                    width: 5,
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
                                                     decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xff414042),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99)),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  const Text.rich(
-                                                    TextSpan(
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 16,
-                                                          color: Color(
-                                                              0xff414042)),
-                                                      children: [
-                                                        TextSpan(
-                                                            text:
-                                                                '상담·상담확인서 요청 확인 및\n'),
-                                                        TextSpan(
-                                                            text:
-                                                                '수락·거절·취소 등 전반적인 상담 관리 '),
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xffDFDFDF)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              99),
+                                                      color: AppColor.font1,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: AppColor.font1
+                                                              .withOpacity(0.4),
+                                                          spreadRadius: 5,
+                                                          blurRadius: 4,
+                                                          offset: const Offset(
+                                                              0, 0),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 312,
+                                                    width: 2,
+                                                    color: AppColor.font1,
+                                                  ),
                                                 ],
-                                              )
+                                              ),
+                                              const SizedBox(width: 20),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    '상담 요청 관리',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        margin: const EdgeInsets
+                                                            .only(top: 8),
+                                                        height: 5,
+                                                        width: 5,
+                                                        decoration: BoxDecoration(
+                                                            color: const Color(
+                                                                0xff414042),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        99)),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          const Text.rich(
+                                                            TextSpan(
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 16,
+                                                                  color: Color(
+                                                                      0xff414042)),
+                                                              children: [
+                                                                TextSpan(
+                                                                    text:
+                                                                        '상담·상담확인서 요청 확인 및\n'),
+                                                                TextSpan(
+                                                                    text:
+                                                                        '수락·거절·취소 등 전반적인 상담 관리 '),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 14,
+                                                          ),
+                                                          Container(
+                                                              width: 290,
+                                                              height: 244.5,
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/computer_1.svg',
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -269,49 +306,59 @@ class _Phone5State extends State<Phone5> {
                                         ],
                                       )
                                     : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: const Color(
-                                                            0xffDFDFDF)),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            99),
-                                                    color: Colors.transparent),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color(
+                                                                0xffDFDFDF)),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(99),
+                                                        color:
+                                                            Colors.transparent),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 36,
+                                                    width: 2,
+                                                    color:
+                                                        const Color(0xff93969B),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 36,
-                                                width: 2,
-                                                color: const Color(0xff93969B),
+                                              const SizedBox(width: 20),
+                                              const Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '상담 요청 관리',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0xff93969B)),
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(width: 20),
-                                          const Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '상담 요청 관리',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff93969B)),
-                                              ),
-                                              SizedBox(height: 16),
-                                            ],
-                                          ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -334,96 +381,120 @@ class _Phone5State extends State<Phone5> {
                                 ),
                                 b
                                     ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: const Color(
-                                                          0xffDFDFDF)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(99),
-                                                  color: AppColor.font1,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppColor.font1
-                                                          .withOpacity(0.4),
-                                                      spreadRadius: 5,
-                                                      blurRadius: 4,
-                                                      offset:
-                                                          const Offset(0, 0),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 95,
-                                                width: 2,
-                                                color: AppColor.font1,
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(width: 20),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                '상담 요청 관리',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.black),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Column(
                                                 children: [
                                                   Container(
                                                     margin:
                                                         const EdgeInsets.only(
-                                                            top: 8),
-                                                    height: 5,
-                                                    width: 5,
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
                                                     decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xff414042),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99)),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  const Text.rich(
-                                                    TextSpan(
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 16,
-                                                          color: Color(
-                                                              0xff414042)),
-                                                      children: [
-                                                        TextSpan(
-                                                            text:
-                                                                '학생이 작성한 상담 요청 주제와 상담\n'),
-                                                        TextSpan(
-                                                            text: '내용 확인 가능'),
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xffDFDFDF)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              99),
+                                                      color: AppColor.font1,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: AppColor.font1
+                                                              .withOpacity(0.4),
+                                                          spreadRadius: 5,
+                                                          blurRadius: 4,
+                                                          offset: const Offset(
+                                                              0, 0),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 312,
+                                                    width: 2,
+                                                    color: AppColor.font1,
+                                                  ),
                                                 ],
-                                              )
+                                              ),
+                                              const SizedBox(width: 20),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    '상담 요청 관리',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        margin: const EdgeInsets
+                                                            .only(top: 8),
+                                                        height: 5,
+                                                        width: 5,
+                                                        decoration: BoxDecoration(
+                                                            color: const Color(
+                                                                0xff414042),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        99)),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Column(
+                                                        children: [
+                                                          const Text.rich(
+                                                            TextSpan(
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 16,
+                                                                  color: Color(
+                                                                      0xff414042)),
+                                                              children: [
+                                                                TextSpan(
+                                                                    text:
+                                                                        '학생이 작성한 상담 요청 주제와 상담\n'),
+                                                                TextSpan(
+                                                                    text:
+                                                                        '내용 확인 가능'),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                              width: 290,
+                                                              height: 244.5,
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/computer_2.svg',
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -442,49 +513,59 @@ class _Phone5State extends State<Phone5> {
                                         ],
                                       )
                                     : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: const Color(
-                                                            0xffDFDFDF)),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            99),
-                                                    color: Colors.transparent),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color(
+                                                                0xffDFDFDF)),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(99),
+                                                        color:
+                                                            Colors.transparent),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 36,
+                                                    width: 2,
+                                                    color:
+                                                        const Color(0xff93969B),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 36,
-                                                width: 2,
-                                                color: const Color(0xff93969B),
+                                              const SizedBox(width: 20),
+                                              const Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '상담 내용 상세 확인',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0xff93969B)),
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(width: 20),
-                                          const Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '상담 내용 상세 확인',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff93969B)),
-                                              ),
-                                              SizedBox(height: 16),
-                                            ],
-                                          ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -507,99 +588,123 @@ class _Phone5State extends State<Phone5> {
                                 ),
                                 c
                                     ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: const Color(
-                                                          0xffDFDFDF)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(99),
-                                                  color: AppColor.font1,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppColor.font1
-                                                          .withOpacity(0.4),
-                                                      spreadRadius: 5,
-                                                      blurRadius: 4,
-                                                      offset:
-                                                          const Offset(0, 0),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 95,
-                                                width: 2,
-                                                color: AppColor.font1,
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(width: 20),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                '학생 진로심리검사 내용 확인',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.black),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Column(
                                                 children: [
                                                   Container(
                                                     margin:
                                                         const EdgeInsets.only(
-                                                            top: 8),
-                                                    height: 5,
-                                                    width: 5,
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
                                                     decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xff414042),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99)),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  const Text.rich(
-                                                    TextSpan(
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 16,
-                                                          color: Color(
-                                                              0xff414042)),
-                                                      children: [
-                                                        TextSpan(
-                                                            text:
-                                                                '상담 전, 학생이 실시한 진로심리검사\n'),
-                                                        TextSpan(
-                                                            text:
-                                                                '내용을 확인하여 학생별 특성을 고려한\n'),
-                                                        TextSpan(
-                                                            text: '상담준비\n '),
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xffDFDFDF)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              99),
+                                                      color: AppColor.font1,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: AppColor.font1
+                                                              .withOpacity(0.4),
+                                                          spreadRadius: 5,
+                                                          blurRadius: 4,
+                                                          offset: const Offset(
+                                                              0, 0),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 312,
+                                                    width: 2,
+                                                    color: AppColor.font1,
+                                                  ),
                                                 ],
-                                              )
+                                              ),
+                                              const SizedBox(width: 20),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    '학생 진로심리검사 내용 확인',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        margin: const EdgeInsets
+                                                            .only(top: 8),
+                                                        height: 5,
+                                                        width: 5,
+                                                        decoration: BoxDecoration(
+                                                            color: const Color(
+                                                                0xff414042),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        99)),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Column(
+                                                        children: [
+                                                          const Text.rich(
+                                                            TextSpan(
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 16,
+                                                                  color: Color(
+                                                                      0xff414042)),
+                                                              children: [
+                                                                TextSpan(
+                                                                    text:
+                                                                        '상담 전, 학생이 실시한 진로심리검사\n'),
+                                                                TextSpan(
+                                                                    text:
+                                                                        '내용을 확인하여 학생별 특성을 고려한\n'),
+                                                                TextSpan(
+                                                                    text:
+                                                                        '상담준비\n '),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                              width: 290,
+                                                              height: 244.5,
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/computer_3.svg',
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -618,49 +723,59 @@ class _Phone5State extends State<Phone5> {
                                         ],
                                       )
                                     : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: const Color(
-                                                            0xffDFDFDF)),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            99),
-                                                    color: Colors.transparent),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color(
+                                                                0xffDFDFDF)),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(99),
+                                                        color:
+                                                            Colors.transparent),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 36,
+                                                    width: 2,
+                                                    color:
+                                                        const Color(0xff93969B),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 36,
-                                                width: 2,
-                                                color: const Color(0xff93969B),
+                                              const SizedBox(width: 20),
+                                              const Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '학생 진로심리검사 내용 확인',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0xff93969B)),
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(width: 20),
-                                          const Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '학생 진로심리검사 내용 확인',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff93969B)),
-                                              ),
-                                              SizedBox(height: 16),
-                                            ],
-                                          ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -683,94 +798,117 @@ class _Phone5State extends State<Phone5> {
                                 ),
                                 d
                                     ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: const Color(
-                                                          0xffDFDFDF)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(99),
-                                                  color: AppColor.font1,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppColor.font1
-                                                          .withOpacity(0.4),
-                                                      spreadRadius: 5,
-                                                      blurRadius: 4,
-                                                      offset:
-                                                          const Offset(0, 0),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 95,
-                                                width: 2,
-                                                color: AppColor.font1,
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(width: 20),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                '상담 후 내용 정리',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.black),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Column(
                                                 children: [
                                                   Container(
                                                     margin:
                                                         const EdgeInsets.only(
-                                                            top: 8),
-                                                    height: 5,
-                                                    width: 5,
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
                                                     decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xff414042),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(99)),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  const Text.rich(
-                                                    TextSpan(
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 16,
-                                                          color: Color(
-                                                              0xff414042)),
-                                                      children: [
-                                                        TextSpan(
-                                                            text:
-                                                                '상담 후 내용 정리하고 다운로드\n'),
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xffDFDFDF)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              99),
+                                                      color: AppColor.font1,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: AppColor.font1
+                                                              .withOpacity(0.4),
+                                                          spreadRadius: 5,
+                                                          blurRadius: 4,
+                                                          offset: const Offset(
+                                                              0, 0),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 312,
+                                                    width: 2,
+                                                    color: AppColor.font1,
+                                                  ),
                                                 ],
-                                              )
+                                              ),
+                                              const SizedBox(width: 20),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    '상담 후 내용 정리',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        margin: const EdgeInsets
+                                                            .only(top: 8),
+                                                        height: 5,
+                                                        width: 5,
+                                                        decoration: BoxDecoration(
+                                                            color: const Color(
+                                                                0xff414042),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        99)),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Column(
+                                                        children: [
+                                                          const Text.rich(
+                                                            TextSpan(
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 16,
+                                                                  color: Color(
+                                                                      0xff414042)),
+                                                              children: [
+                                                                TextSpan(
+                                                                    text:
+                                                                        '상담 후 내용 정리하고 다운로드\n'),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                              width: 290,
+                                                              height: 244.5,
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/computer_4.svg',
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -789,49 +927,59 @@ class _Phone5State extends State<Phone5> {
                                         ],
                                       )
                                     : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 5),
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: const Color(
-                                                            0xffDFDFDF)),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            99),
-                                                    color: Colors.transparent),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            top: 5),
+                                                    height: 20,
+                                                    width: 20,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color(
+                                                                0xffDFDFDF)),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(99),
+                                                        color:
+                                                            Colors.transparent),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Container(
+                                                    height: 36,
+                                                    width: 2,
+                                                    color:
+                                                        const Color(0xff93969B),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 16),
-                                              Container(
-                                                height: 36,
-                                                width: 2,
-                                                color: const Color(0xff93969B),
+                                              const SizedBox(width: 20),
+                                              const Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '상담 후 내용 정리',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0xff93969B)),
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(width: 20),
-                                          const Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '상담 후 내용 정리',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff93969B)),
-                                              ),
-                                              SizedBox(height: 16),
-                                            ],
-                                          ),
-                                          const Spacer(),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
@@ -852,17 +1000,19 @@ class _Phone5State extends State<Phone5> {
                               ]),
                         ),
                         const SizedBox(
-                          width: 92,
+                          width: 30,
                         ),
-                        if (a) SvgPicture.asset('assets/images/computer_1.svg'),
-                        if (b) SvgPicture.asset('assets/images/computer_2.svg'),
-                        if (c) SvgPicture.asset('assets/images/computer_3.svg'),
-                        if (d) SvgPicture.asset('assets/images/computer_4.svg'),
+                        // if (a) SvgPicture.asset('assets/images/computer_1.svg'),
+                        // if (b) SvgPicture.asset('assets/images/computer_2.svg'),
+                        // if (c) SvgPicture.asset('assets/images/computer_3.svg'),
+                        // if (d) SvgPicture.asset('assets/images/computer_4.svg'),
                       ],
                     ),
-                  )
-                ]),
-              ));
+                  ),
+                )
+              ]),
+            ),
+          );
         },
       ),
     );
