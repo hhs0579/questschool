@@ -12,8 +12,8 @@ class Desktop8 extends StatefulWidget {
 }
 
 class _Desktop8State extends State<Desktop8> {
-  bool a = true;
-  bool b = false;
+  bool t = true;
+  bool s = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,8 +92,8 @@ class _Desktop8State extends State<Desktop8> {
                               hoverColor: Colors.transparent, // 호버 효과 제거
                               onTap: () {
                                 setState(() {
-                                  a = !a;
-                                  b = !b;
+                                  t = !t;
+                                  s = !s;
                                 });
                               },
                               child: Container(
@@ -101,7 +101,7 @@ class _Desktop8State extends State<Desktop8> {
                                 height: 44,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(99),
-                                    color: a ? Color(0xff414042) : Colors.white,
+                                    color: t ? Color(0xff414042) : Colors.white,
                                     border:
                                         Border.all(color: Color(0xff93969B))),
                                 child: Center(
@@ -111,7 +111,7 @@ class _Desktop8State extends State<Desktop8> {
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
                                       color:
-                                          a ? Colors.white : Color(0xff93969B)),
+                                          t ? Colors.white : Color(0xff93969B)),
                                 )),
                               ),
                             ),
@@ -120,8 +120,8 @@ class _Desktop8State extends State<Desktop8> {
                               hoverColor: Colors.transparent, // 호버 효과 제거
                               onTap: () {
                                 setState(() {
-                                  a = !a;
-                                  b = !b;
+                                  t = !t;
+                                  s = !s;
                                 });
                               },
                               child: Container(
@@ -129,7 +129,7 @@ class _Desktop8State extends State<Desktop8> {
                                 height: 44,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(99),
-                                    color: b ? Color(0xff414042) : Colors.white,
+                                    color: s ? Color(0xff414042) : Colors.white,
                                     border:
                                         Border.all(color: Color(0xff93969B))),
                                 child: Center(
@@ -139,7 +139,7 @@ class _Desktop8State extends State<Desktop8> {
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
                                       color:
-                                          b ? Colors.white : Color(0xff93969B)),
+                                          s ? Colors.white : Color(0xff93969B)),
                                 )),
                               ),
                             )

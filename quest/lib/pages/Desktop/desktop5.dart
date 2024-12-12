@@ -27,7 +27,7 @@ class _Desktop5State extends State<Desktop5> {
     super.initState();
     // 컨트롤러 초기화
     _controller = YoutubePlayerController.fromVideoId(
-      videoId: 'NMjhjrBIrG8', // 실제 유튜브 비디오 ID로 교체
+      videoId: 'LUWbfI17_UU', // 실제 유튜브 비디오 ID로 교체
       params: const YoutubePlayerParams(
         showControls: true,
         showFullscreenButton: true,
@@ -56,7 +56,7 @@ class _Desktop5State extends State<Desktop5> {
               ),
               child: YoutubePlayer(
                 controller: YoutubePlayerController.fromVideoId(
-                  videoId: 'NMjhjrBIrG8',
+                  videoId: 'LUWbfI17_UU',
                   params: const YoutubePlayerParams(
                     showControls: true,
                     showFullscreenButton: true,

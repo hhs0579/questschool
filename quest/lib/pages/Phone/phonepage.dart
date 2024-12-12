@@ -20,7 +20,6 @@ class PhonePage extends StatefulWidget {
 }
 
 class _PhonePageState extends State<PhonePage> {
-  YoutubePlayerController? _controller;
   bool a = true;
   bool b = false;
   bool c = false;
@@ -40,7 +39,7 @@ class _PhonePageState extends State<PhonePage> {
   // 다이얼로그 표시 함수
   void _showVideoDialog(BuildContext context) async {
     final controller = YoutubePlayerController.fromVideoId(
-      videoId: 'NMjhjrBIrG8',
+      videoId: 'LUWbfI17_UU',
       params: const YoutubePlayerParams(
         showControls: true,
         showFullscreenButton: true,
@@ -65,7 +64,7 @@ class _PhonePageState extends State<PhonePage> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: YoutubePlayer(
-                controller: controller,
+                controller: widget.youtubeController,
               ),
             ),
           ),
@@ -505,13 +504,13 @@ class _PhonePageState extends State<PhonePage> {
                                                             height: 14,
                                                           ),
                                                           Container(
-                                                              width: 290,
+                                                              width: 250,
                                                               height: 244.5,
                                                               child: SvgPicture
                                                                   .asset(
                                                                 'assets/images/computer_1.svg',
                                                                 fit: BoxFit
-                                                                    .cover,
+                                                                    .contain,
                                                               )),
                                                         ],
                                                       ),
@@ -712,13 +711,13 @@ class _PhonePageState extends State<PhonePage> {
                                                             ),
                                                           ),
                                                           Container(
-                                                              width: 290,
+                                                              width: 250,
                                                               height: 244.5,
                                                               child: SvgPicture
                                                                   .asset(
                                                                 'assets/images/computer_2.svg',
                                                                 fit: BoxFit
-                                                                    .cover,
+                                                                    .contain,
                                                               )),
                                                         ],
                                                       ),
@@ -922,13 +921,13 @@ class _PhonePageState extends State<PhonePage> {
                                                             ),
                                                           ),
                                                           Container(
-                                                              width: 290,
+                                                              width: 250,
                                                               height: 244.5,
                                                               child: SvgPicture
                                                                   .asset(
                                                                 'assets/images/computer_3.svg',
                                                                 fit: BoxFit
-                                                                    .cover,
+                                                                    .contain,
                                                               )),
                                                         ],
                                                       ),
@@ -1126,13 +1125,13 @@ class _PhonePageState extends State<PhonePage> {
                                                             ),
                                                           ),
                                                           Container(
-                                                              width: 290,
+                                                              width: 250,
                                                               height: 244.5,
                                                               child: SvgPicture
                                                                   .asset(
                                                                 'assets/images/computer_4.svg',
                                                                 fit: BoxFit
-                                                                    .cover,
+                                                                    .contain,
                                                               )),
                                                         ],
                                                       ),
@@ -1580,13 +1579,11 @@ class _PhonePageState extends State<PhonePage> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(
-                          left: 20, right: 20, bottom: 20, top: 20),
-                      height: 300,
-                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.6,
                       child: YoutubePlayer(
                         controller: YoutubePlayerController.fromVideoId(
-                          videoId: 'NMjhjrBIrG8',
+                          videoId: 'LUWbfI17_UU',
                           params: const YoutubePlayerParams(
                             showControls: true,
                             showFullscreenButton: true,
@@ -1644,7 +1641,10 @@ class _PhonePageState extends State<PhonePage> {
                                 width: 30,
                               ),
                               InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    _launchURL(
+                                        'https://minjae7189.notion.site/87708aafc4fa48e0aed3d95a397ab5f5');
+                                  },
                                   child: Text(
                                     '듀토리얼 확인하기',
                                     style: TextStyle(
