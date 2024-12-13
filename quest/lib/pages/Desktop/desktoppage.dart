@@ -44,13 +44,7 @@ class _DesktopPageState extends State<DesktopPage> {
   void initState() {
     super.initState();
     // 컨트롤러 초기화
-    _controller = YoutubePlayerController.fromVideoId(
-      videoId: 'LUWbfI17_UU', // 실제 유튜브 비디오 ID로 교체
-      params: const YoutubePlayerParams(
-        showControls: true,
-        showFullscreenButton: true,
-      ),
-    );
+
     _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       setState(() {
         currentIndex = (currentIndex + 1) % svgPaths.length;

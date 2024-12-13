@@ -1234,10 +1234,10 @@ class _PhonePageState extends State<PhonePage> {
                         const SizedBox(
                           height: 30,
                         ),
-                        // if (a) SvgPicture.asset('assets/images/computer_1.svg'),
-                        // if (b) SvgPicture.asset('assets/images/computer_2.svg'),
-                        // if (c) SvgPicture.asset('assets/images/computer_3.svg'),
-                        // if (d) SvgPicture.asset('assets/images/computer_4.svg'),
+                        if (a) SvgPicture.asset('assets/images/computer_1.svg'),
+                        if (b) SvgPicture.asset('assets/images/computer_2.svg'),
+                        if (c) SvgPicture.asset('assets/images/computer_3.svg'),
+                        if (d) SvgPicture.asset('assets/images/computer_4.svg'),
                       ],
                     ),
                   )
@@ -1633,7 +1633,7 @@ class _PhonePageState extends State<PhonePage> {
                                   child: Text(
                                     '회사소개',
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black),
                                   )),
@@ -1648,7 +1648,7 @@ class _PhonePageState extends State<PhonePage> {
                                   child: Text(
                                     '듀토리얼 확인하기',
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black),
                                   )),
@@ -1661,7 +1661,7 @@ class _PhonePageState extends State<PhonePage> {
                                   child: Text(
                                     '문의하기',
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black),
                                   ))
