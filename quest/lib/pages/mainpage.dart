@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quest/components/screensized.dart';
 
 import 'package:quest/pages/Desktop/desktoppage.dart';
+import 'package:quest/pages/Desktop/pageview.dart';
 
 import 'package:quest/pages/Phone/phonepage.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
@@ -31,7 +32,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  
   late YoutubePlayerController _youtubeController;
 
   @override
@@ -57,9 +57,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveLayout(
-        mobile: PhonePage(youtubeController: _youtubeController),
-        desktop: DesktopPage(youtubeController: _youtubeController),
-      ),
+          mobile: PhonePage(youtubeController: _youtubeController),
+          desktop: SmoothPageViewScreen()),
     );
   }
 }
