@@ -7,6 +7,7 @@ class AppColor {
   static const Color font2 = Color(0xFF474747);
   static const Color font3 = Color(0xFF757575);
   static const Color font4 = Color(0xFF999999);
+  static const Color font5 = Color(0xFF616161);
   //라인 컬러
   static const Color line1 = Color(0xFFE5E5EC);
   static const Color line2 = Color(0xFFF1F1F5);

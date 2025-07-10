@@ -1,9 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:quest/components/color.dart';
 import 'package:quest/components/painter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+// 웹용
+import 'dart:html' as html;
+import 'dart:ui' as ui;
 
 class Desktop2 extends StatefulWidget {
   final PageController pageController;
@@ -19,10 +23,7 @@ class Desktop2 extends StatefulWidget {
 
 class _Desktop2State extends State<Desktop2>
     with AutomaticKeepAliveClientMixin {
-  late YoutubePlayerController _controller;
-  bool _isInView = true;
-  bool _isLoading = false;
-  bool _hasError = false;
+  bool _showPlayer = false;
 
   @override
   bool get wantKeepAlive => true;
@@ -30,81 +31,33 @@ class _Desktop2State extends State<Desktop2>
   @override
   void initState() {
     super.initState();
-    _initController();
+    if (kIsWeb) {
+      _registerIframe();
+    }
   }
 
-  void _initController() {
-    _controller = YoutubePlayerController(
-      params: const YoutubePlayerParams(
-        mute: false,
-        showControls: true,
-        showFullscreenButton: true,
-        loop: false,
-      ),
-    );
-
-    _loadVideo();
-  }
-
-  void _loadVideo() {
+  void _registerIframe() {
     try {
-      _controller.loadVideoById(
-        videoId: 'LUWbfI17_UU',
+      // ignore: undefined_prefixed_name
+      ui.platformViewRegistry.registerViewFactory(
+        'youtube-player-desktop2',
+        (int viewId) => _createIframe('LUWbfI17_UU'),
       );
-
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _hasError = false;
-        });
-      }
     } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _hasError = true;
-        });
-      }
-      print('비디오 로딩 오류: $e');
+      print('iframe 등록 실패: $e');
     }
   }
 
-  @override
-  void dispose() {
-    try {
-      _controller.close();
-    } catch (e) {
-      print('Controller dispose 오류: $e');
-    }
-    super.dispose();
-  }
-
-  void _handleVisibilityChange() {
-    if (!mounted) return;
-
-    try {
-      final renderObject = context.findRenderObject();
-      if (renderObject == null) return;
-
-      final RenderBox box = renderObject as RenderBox;
-      final Offset position = box.localToGlobal(Offset.zero);
-      final Size size = box.size;
-
-      final screenHeight = MediaQuery.of(context).size.height;
-      final isVisible =
-          position.dy < screenHeight && position.dy + size.height > 0;
-
-      if (isVisible != _isInView) {
-        setState(() {
-          _isInView = isVisible;
-        });
-        if (!isVisible && !_hasError) {
-          _controller.pauseVideo();
-        }
-      }
-    } catch (e) {
-      print('Visibility 체크 오류: $e');
-    }
+  html.IFrameElement _createIframe(String videoId) {
+    final iframe = html.IFrameElement()
+      ..src = 'https://www.youtube.com/embed/$videoId?autoplay=1&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3'
+      ..style.border = 'none'
+      ..style.width = '100%'
+      ..style.height = '100%'
+      ..style.borderRadius = '20px'
+      ..allowFullscreen = true
+      ..allow = 'autoplay; encrypted-media; fullscreen';
+    return iframe;
   }
 
   Future<void> _launchURL(String url) async {
@@ -152,54 +105,50 @@ class _Desktop2State extends State<Desktop2>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification notification) {
-        _handleVisibilityChange();
-        return true;
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            final screenWidth = MediaQuery.of(context).size.width;
-            final screenHeight = MediaQuery.of(context).size.height;
-            final responsivePadding = _getResponsivePadding(screenWidth);
-            final borderRadius = _getResponsiveBorderRadius(screenWidth);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final screenWidth = MediaQuery.of(context).size.width;
+          final screenHeight = MediaQuery.of(context).size.height;
+          final responsivePadding = _getResponsivePadding(screenWidth);
+          final borderRadius = _getResponsiveBorderRadius(screenWidth);
 
-            return Container(
-              width: screenWidth,
-              height: screenHeight, // 화면 높이에 정확히 맞춤
-              child: Column(
-                children: [
-                  // 상단 제목
-                  Container(
-                    padding: const EdgeInsets.only(top: 60, bottom: 20),
-                    child: Text.rich(
-                      TextSpan(
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth > 600 ? 36 : 28,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '퀘스트스쿨',
-                            style: TextStyle(color: AppColor.font1),
-                          ),
-                          const TextSpan(text: '의 홍보용 영상'),
-                        ],
+          return Container(
+            width: screenWidth,
+            height: screenHeight,
+            child: Column(
+              children: [
+                // 상단 제목
+                Container(
+                  padding: const EdgeInsets.only(top: 60, bottom: 20),
+                  child: Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth > 600 ? 36 : 28,
+                        color: Colors.black,
                       ),
+                      children: [
+                        TextSpan(
+                          text: '퀘스트스쿨',
+                          style: TextStyle(color: AppColor.font1),
+                        ),
+                        const TextSpan(text: '의 홍보용 영상'),
+                      ],
                     ),
                   ),
+                ),
 
-                  // 유튜브 플레이어 컨테이너 - Expanded로 남은 공간 차지
-                  Expanded(
-                    child: Container(
-                      padding: responsivePadding,
+                // 비디오 컨테이너
+                Expanded(
+                  child: Container(
+                    padding: responsivePadding,
+                    child: Center(
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 1200, // 최대 너비 제한
+                          maxWidth: 1200,
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(borderRadius),
@@ -213,137 +162,270 @@ class _Desktop2State extends State<Desktop2>
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(borderRadius),
-                          child: _buildVideoPlayer(),
+                          child: _buildVideoContent(),
                         ),
                       ),
                     ),
                   ),
+                ),
 
-                  // 하단 여백
-                  const SizedBox(height: 40),
-                ],
-              ),
-            );
-          },
-        ),
+                // 하단 여백
+                const SizedBox(height: 40),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildVideoPlayer() {
-    if (_hasError) {
-      return _buildErrorWidget();
+  Widget _buildVideoContent() {
+    if (_showPlayer) {
+      return _buildVideoPlayer();
     }
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // 사용 가능한 공간 계산
-        final availableWidth = constraints.maxWidth;
-        final availableHeight = constraints.maxHeight;
-
-        // 16:9 비율로 계산했을 때의 크기
-        final videoWidth = availableWidth;
-        final videoHeight = videoWidth * 9 / 16;
-
-        // 높이가 넘치면 높이 기준으로 계산
-        if (videoHeight > availableHeight) {
-          final adjustedHeight = availableHeight;
-          final adjustedWidth = adjustedHeight * 16 / 9;
-
-          return Center(
-            child: SizedBox(
-              width: adjustedWidth,
-              height: adjustedHeight,
-              child: YoutubePlayer(
-                controller: _controller,
-                aspectRatio: 16 / 9,
-              ),
-            ),
-          );
-        }
-
-        // 기본 AspectRatio 사용
-        return AspectRatio(
-          aspectRatio: 16 / 9,
-          child: YoutubePlayer(
-            controller: _controller,
-            aspectRatio: 16 / 9,
-          ),
-        );
-      },
-    );
+    return _buildPlayButton();
   }
 
-  Widget _buildLoadingWidget() {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: Container(
-        color: Colors.black12,
-        child: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text(
-                '비디오 로딩 중...',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
+  Widget _buildVideoPlayer() {
+    if (kIsWeb) {
+      // 웹: iframe으로 페이지 내 재생
+      return AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+          ),
+          child: HtmlElementView(
+            viewType: 'youtube-player-desktop2',
+          ),
+        ),
+      );
+    } else {
+      // 모바일: YouTube 앱으로 이동 안내
+      return AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black87,
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.smart_display, size: 60, color: Colors.white70),
+                SizedBox(height: 16),
+                Text(
+                  '모바일에서는 YouTube 앱에서\n시청하실 수 있습니다',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
                 ),
+                SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () => _launchURL('https://www.youtube.com/watch?v=LUWbfI17_UU'),
+                  icon: Icon(Icons.open_in_new),
+                  label: Text('YouTube에서 보기'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _buildPlayButton() {
+    const videoId = 'LUWbfI17_UU';
+    const thumbnailUrl = 'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _showPlayer = true;
+        });
+      },
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+          ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // 실제 YouTube 썸네일
+              Image.network(
+                thumbnailUrl,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Container(
+                    color: Colors.grey[300],
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  // 썸네일 로드 실패 시 대체 이미지
+                  return Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          AppColor.font1.withOpacity(0.3),
+                          AppColor.primary.withOpacity(0.3),
+                        ],
+                      ),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.video_library,
+                            size: 60,
+                            color: Colors.white70,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            '퀘스트스쿨 홍보 영상',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+              // 어둠 오버레이 (재생 버튼 가시성을 위해)
+              Container(
+                color: Colors.black.withOpacity(0.3),
+              ),
+
+              // 중앙 플레이 버튼
+              Center(
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        blurRadius: 15,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    Icons.play_arrow,
+                    size: 40,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+
+              // 하단 제목 오버레이
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.8),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '퀘스트스쿨 홍보 영상',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        kIsWeb ? '클릭하여 이 페이지에서 재생하기' : '클릭하여 YouTube 앱에서 보기',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // YouTube 라벨
+              Positioned(
+                top: 16,
+                right: 16,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.play_circle_outline,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        'YouTube',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // 호버 효과
+              MouseRegion(
+                onEnter: (_) {},
+                onExit: (_) {},
+                child: Container(),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildErrorWidget() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Container(
-          width: constraints.maxWidth,
-          height: constraints.maxHeight,
-          color: Colors.grey[100],
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 48,
-                  color: Colors.grey[600],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  '비디오를 불러올 수 없습니다',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    _loadVideo();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.font1,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                  ),
-                  child: const Text('다시 시도'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

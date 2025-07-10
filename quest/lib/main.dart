@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:quest/components/scroll.dart';
 import 'package:quest/pages/mainpage.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
+  if (kIsWeb) {
+    // 웹에서 에러 무시 설정
+    FlutterError.onError = (FlutterErrorDetails details) {
+      if (!details.toString().contains('nativeCommunication')) {
+        FlutterError.presentError(details);
+      }
+    };
+  }
   runApp(const MyApp());
 }
 
