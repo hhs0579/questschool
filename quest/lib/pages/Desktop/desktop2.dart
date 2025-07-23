@@ -10,12 +10,7 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 class Desktop2 extends StatefulWidget {
-  final PageController pageController;
-
-  const Desktop2({
-    super.key,
-    required this.pageController,
-  });
+  const Desktop2({super.key});
 
   @override
   State<Desktop2> createState() => _Desktop2State();
@@ -50,7 +45,8 @@ class _Desktop2State extends State<Desktop2>
 
   html.IFrameElement _createIframe(String videoId) {
     final iframe = html.IFrameElement()
-      ..src = 'https://www.youtube.com/embed/$videoId?autoplay=1&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3'
+      ..src =
+          'https://www.youtube.com/embed/$videoId?autoplay=1&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3'
       ..style.border = 'none'
       ..style.width = '100%'
       ..style.height = '100%'
@@ -103,78 +99,78 @@ class _Desktop2State extends State<Desktop2>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    return RepaintBoundary(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final screenWidth = MediaQuery.of(context).size.width;
+            final screenHeight = MediaQuery.of(context).size.height;
+            final responsivePadding = _getResponsivePadding(screenWidth);
+            final borderRadius = _getResponsiveBorderRadius(screenWidth);
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final screenWidth = MediaQuery.of(context).size.width;
-          final screenHeight = MediaQuery.of(context).size.height;
-          final responsivePadding = _getResponsivePadding(screenWidth);
-          final borderRadius = _getResponsiveBorderRadius(screenWidth);
-
-          return Container(
-            width: screenWidth,
-            height: screenHeight,
-            child: Column(
-              children: [
-                // 상단 제목
-                Container(
-                  padding: const EdgeInsets.only(top: 60, bottom: 20),
-                  child: Text.rich(
-                    TextSpan(
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth > 600 ? 36 : 28,
-                        color: Colors.black,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: '퀘스트스쿨',
-                          style: TextStyle(color: AppColor.font1),
+            return Container(
+              width: screenWidth,
+              height: screenHeight,
+              child: Column(
+                children: [
+                  // 상단 제목
+                  Container(
+                    padding: const EdgeInsets.only(top: 60, bottom: 20),
+                    child: Text.rich(
+                      TextSpan(
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth > 600 ? 36 : 28,
+                          color: Colors.black,
                         ),
-                        const TextSpan(text: '의 홍보용 영상'),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // 비디오 컨테이너
-                Expanded(
-                  child: Container(
-                    padding: responsivePadding,
-                    child: Center(
-                      child: Container(
-                        width: double.infinity,
-                        constraints: const BoxConstraints(
-                          maxWidth: 1200,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(borderRadius),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(borderRadius),
-                          child: _buildVideoContent(),
-                        ),
+                        children: [
+                          TextSpan(
+                            text: '퀘스트스쿨',
+                            style: TextStyle(color: AppColor.font1),
+                          ),
+                          const TextSpan(text: '의 홍보용 영상'),
+                        ],
                       ),
                     ),
                   ),
-                ),
 
-                // 하단 여백
-                const SizedBox(height: 40),
-              ],
-            ),
-          );
-        },
+                  // 비디오 컨테이너
+                  Expanded(
+                    child: Container(
+                      padding: responsivePadding,
+                      child: Center(
+                        child: Container(
+                          width: double.infinity,
+                          constraints: const BoxConstraints(
+                            maxWidth: 1200,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            child: _buildVideoContent(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // 하단 여백
+                  const SizedBox(height: 40),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -221,7 +217,8 @@ class _Desktop2State extends State<Desktop2>
                 ),
                 SizedBox(height: 16),
                 ElevatedButton.icon(
-                  onPressed: () => _launchURL('https://www.youtube.com/watch?v=LUWbfI17_UU'),
+                  onPressed: () =>
+                      _launchURL('https://www.youtube.com/watch?v=LUWbfI17_UU'),
                   icon: Icon(Icons.open_in_new),
                   label: Text('YouTube에서 보기'),
                   style: ElevatedButton.styleFrom(
@@ -239,7 +236,8 @@ class _Desktop2State extends State<Desktop2>
 
   Widget _buildPlayButton() {
     const videoId = 'LUWbfI17_UU';
-    const thumbnailUrl = 'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
+    const thumbnailUrl =
+        'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
 
     return GestureDetector(
       onTap: () {
@@ -270,6 +268,8 @@ class _Desktop2State extends State<Desktop2>
                             ? loadingProgress.cumulativeBytesLoaded /
                                 loadingProgress.expectedTotalBytes!
                             : null,
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColor.font1),
                       ),
                     ),
                   );
@@ -389,7 +389,8 @@ class _Desktop2State extends State<Desktop2>
                 top: 16,
                 right: 16,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(12),

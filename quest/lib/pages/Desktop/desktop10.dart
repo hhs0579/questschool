@@ -6,12 +6,7 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Desktop10 extends StatefulWidget {
-  final PageController pageController; // PageController 추가
-
-  const Desktop10({
-    super.key,
-    required this.pageController, // 생성자에 추가
-  });
+  const Desktop10({super.key});
 
   @override
   State<Desktop10> createState() => _Desktop10State();
@@ -92,169 +87,163 @@ class _Desktop10State extends State<Desktop10>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification notification) {
-        _handleVisibilityChange();
-        return true;
-      },
+    return RepaintBoundary(
       child: Scaffold(
         backgroundColor: const Color(0xffEEEEEE),
         body: LayoutBuilder(
           builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: Container(
-                  constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height,
+            return Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
+              ),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 60,
                   ),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 60,
-                      ),
-                      Text.rich(
+                  Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 36,
+                          color: Colors.black),
+                      children: [
                         TextSpan(
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 36,
-                              color: Colors.black),
-                          children: [
-                            TextSpan(
-                                text: '퀘스트스쿨',
-                                style: TextStyle(color: AppColor.font1)),
-                            TextSpan(
-                              text: '의 홍보용 영상',
-                            ),
-                          ],
+                            text: '퀘스트스쿨',
+                            style: TextStyle(color: AppColor.font1)),
+                        TextSpan(
+                          text: '의 홍보용 영상',
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: 130, right: 130, bottom: 120, top: 60),
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: YoutubePlayer(
-                          controller: _controller,
-                          aspectRatio: 16 / 9,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 135, vertical: 120),
-                        child: Row(
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 130, right: 130, bottom: 120, top: 60),
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: YoutubePlayer(
+                      controller: _controller,
+                      aspectRatio: 16 / 9,
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 135, vertical: 120),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      width: 213,
-                                      height: 105,
-                                      child: SvgPicture.asset(
-                                          'assets/images/footer_logo.svg')),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text.rich(
+                              Container(
+                                  width: 213,
+                                  height: 105,
+                                  child: SvgPicture.asset(
+                                      'assets/images/footer_logo.svg')),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.black),
+                                  children: [
                                     TextSpan(
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16,
-                                          color: Colors.black),
-                                      children: [
-                                        TextSpan(
-                                            text:
-                                                '퀘스트스쿨은 진로 콘텐츠 전문 기업 사자가온다(주)에서\n'),
-                                        TextSpan(
-                                            text: '개발한 교내 진로진학 상담 솔루션 서비스입니다.'),
-                                      ],
-                                    ),
-                                  ),
+                                        text:
+                                            '퀘스트스쿨은 진로 콘텐츠 전문 기업 사자가온다(주)에서\n'),
+                                    TextSpan(
+                                        text: '개발한 교내 진로진학 상담 솔루션 서비스입니다.'),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 37,
+                              ),
+                              Text(
+                                'Copyright ⓒ 2023 사자가온다㈜ All rights reserved.',
+                                style: TextStyle(
+                                    color: AppColor.grey1,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () =>
+                                          _launchURL('https://sjgod.kr/'),
+                                      child: Text(
+                                        '회사소개',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
+                                      )),
                                   SizedBox(
-                                    height: 37,
+                                    width: 30,
                                   ),
-                                  Text(
-                                    'Copyright ⓒ 2023 사자가온다㈜ All rights reserved.',
-                                    style: TextStyle(
-                                        color: AppColor.grey1,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  )
+                                  InkWell(
+                                      onTap: () {
+                                        // widget.pageController.animateToPage(
+                                        //   4, // 6번째 페이지(인덱스는 0부터 시작)
+                                        //   duration: const Duration(
+                                        //       milliseconds: 500),
+                                        //   curve: Curves.easeInOut,
+                                        // );
+                                      },
+                                      child: Text(
+                                        '듀토리얼 확인하기',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
+                                      )),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  InkWell(
+                                      onTap: () => _launchURL(
+                                          'https://pf.kakao.com/_KAQxhb'),
+                                      child: Text(
+                                        '문의하기',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
+                                      ))
                                 ],
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                          onTap: () =>
-                                              _launchURL('https://sjgod.kr/'),
-                                          child: Text(
-                                            '회사소개',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
-                                          )),
-                                      SizedBox(
-                                        width: 30,
-                                      ),
-                                      InkWell(
-                                          onTap: () {
-                                            widget.pageController.animateToPage(
-                                              4, // 6번째 페이지(인덱스는 0부터 시작)
-                                              duration: const Duration(
-                                                  milliseconds: 500),
-                                              curve: Curves.easeInOut,
-                                            );
-                                          },
-                                          child: Text(
-                                            '듀토리얼 확인하기',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
-                                          )),
-                                      SizedBox(
-                                        width: 30,
-                                      ),
-                                      InkWell(
-                                          onTap: () => _launchURL(
-                                              'https://pf.kakao.com/_KAQxhb'),
-                                          child: Text(
-                                            '문의하기',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
-                                          ))
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 130,
-                                  ),
-                                  Text.rich(
-                                    TextSpan(
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16,
-                                          color: Colors.black),
-                                      children: [
-                                        TextSpan(text: 'AM 10:00 - PM 17:00\n'),
-                                        TextSpan(
-                                            text: '점심 PM 12:30 - PM 13:30\n'),
-                                        TextSpan(text: '공휴일,주말 휴무'),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ]),
-                      )
-                    ],
-                  )),
+                              SizedBox(
+                                height: 130,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.black),
+                                  children: [
+                                    TextSpan(text: 'AM 10:00 - PM 17:00\n'),
+                                    TextSpan(text: '점심 PM 12:30 - PM 13:30\n'),
+                                    TextSpan(text: '공휴일,주말 휴무'),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        ]),
+                  )
+                ],
+              ),
             );
           },
         ),

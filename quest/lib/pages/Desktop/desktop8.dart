@@ -16,8 +16,9 @@ class _Desktop8State extends State<Desktop8> {
   bool s = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffFFFFFF),
+    return RepaintBoundary(
+        child: Scaffold(
+      backgroundColor: const Color(0xffFFF8F2),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Container(
@@ -156,6 +157,6 @@ class _Desktop8State extends State<Desktop8> {
               ));
         },
       ),
-    );
+    ));
   }
 }

@@ -40,32 +40,34 @@ class _Desktop9State extends State<Desktop9> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffEEEEEE),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height,
-            ),
-            width: MediaQuery.of(context).size.width,
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500), // 페이드 효과 duration
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-              child: Image.asset(
-                svgPaths[currentIndex],
-                key: ValueKey<int>(
-                    currentIndex), // AnimatedSwitcher를 위한 unique key
-                fit: BoxFit.contain,
+    return RepaintBoundary(
+      child: Scaffold(
+        backgroundColor: const Color(0xffEEEEEE),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
               ),
-            ),
-          );
-        },
+              width: MediaQuery.of(context).size.width,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500), // 페이드 효과 duration
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                child: Image.asset(
+                  svgPaths[currentIndex],
+                  key: ValueKey<int>(
+                      currentIndex), // AnimatedSwitcher를 위한 unique key
+                  fit: BoxFit.contain,
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

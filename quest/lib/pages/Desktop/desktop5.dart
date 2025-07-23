@@ -51,17 +51,17 @@ class _Desktop5State extends State<Desktop5> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffFFF8F2),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final screenWidth = constraints.maxWidth;
-          final screenHeight = constraints.maxHeight;
+    return RepaintBoundary(
+      child: Scaffold(
+        backgroundColor: const Color(0xffFFF8F2),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final screenWidth = constraints.maxWidth;
+            final screenHeight = constraints.maxHeight;
 
-          return Container(
-            width: screenWidth,
-            height: screenHeight,
-            child: SingleChildScrollView(
+            return Container(
+              width: screenWidth,
+              height: screenHeight,
               padding: EdgeInsets.symmetric(
                 horizontal: screenWidth > 1400 ? 60 : 20,
                 vertical: 40,
@@ -98,9 +98,9 @@ class _Desktop5State extends State<Desktop5> {
                   SizedBox(height: 24),
                 ],
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -21,8 +21,7 @@ class SmoothPageViewScreen extends StatefulWidget {
 }
 
 class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
+  final ScrollController _scrollController = ScrollController();
 
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
@@ -39,205 +38,126 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          // 메인 PageView - 개선된 스크롤 물리학 적용
-          PageView(
-            controller: _pageController,
-            scrollDirection: Axis.vertical,
-            // 더 부드러운 스크롤을 위한 물리학 설정
-            physics: const BouncingScrollPhysics(),
-            // 페이지 스냅 강화
-            pageSnapping: true,
-            onPageChanged: (index) {
-              setState(() {
-                _currentPage = index;
-              });
-            },
-            children: [
-              // 모든 페이지에 PageController 전달하고 NotificationListener로 래핑
-              _buildPageWrapper(
-                Desktop1(),
-                0,
-              ),
-              _buildPageWrapper(
-                Desktop2(pageController: _pageController),
-                1,
-              ),
-              _buildPageWrapper(
-                Desktop3(),
-                2,
-              ),
-              _buildPageWrapper(
-                Desktop4(),
-                3,
-              ),
-              _buildPageWrapper(
-                Desktop5(),
-                4,
-              ),
-              _buildPageWrapper(
-                Desktop6(),
-                5,
-              ),
-              _buildPageWrapper(
-                Desktop7(),
-                6,
-              ),
-              _buildPageWrapper(
-                Desktop8(),
-                7,
-              ),
-              _buildPageWrapper(
-                Desktop9(),
-                8,
-              ),
-              _buildPageWrapper(
-                Desktop10(pageController: _pageController),
-                9,
-              ),
-            ],
-          ),
-
-          // 페이지 인디케이터 (우측)
-          Positioned(
-            right: 20,
-            top: MediaQuery.of(context).size.height * 0.3,
-            bottom: MediaQuery.of(context).size.height * 0.3,
-            child: _buildPageIndicator(),
-          ),
-
-          // 네비게이션 힌트 (하단)
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: _buildNavigationHint(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 각 페이지를 정확한 화면 크기로 래핑하고 스크롤 충돌 방지
-  Widget _buildPageWrapper(Widget page, int index) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification notification) {
-        // 내부 스크롤이 가장자리에 도달했을 때만 페이지뷰 스크롤 허용
-        if (notification is ScrollEndNotification) {
-          return false; // 페이지뷰 스크롤 허용
-        }
-
-        // 내부 스크롤이 진행 중일 때는 페이지뷰 스크롤 차단
-        if (notification is ScrollUpdateNotification) {
-          final ScrollMetrics metrics = notification.metrics;
-
-          // 스크롤이 위쪽 끝에 도달했고 위로 스크롤하려는 경우
-          if (metrics.pixels <= metrics.minScrollExtent &&
-              notification.scrollDelta! < 0) {
-            return false; // 페이지뷰 스크롤 허용
-          }
-
-          // 스크롤이 아래쪽 끝에 도달했고 아래로 스크롤하려는 경우
-          if (metrics.pixels >= metrics.maxScrollExtent &&
-              notification.scrollDelta! > 0) {
-            return false; // 페이지뷰 스크롤 허용
-          }
-
-          // 내부 스크롤이 중간에 있으면 페이지뷰 스크롤 차단
-          return true;
-        }
-
-        return false;
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: page,
-      ),
-    );
-  }
-
-  // 페이지 인디케이터
-  Widget _buildPageIndicator() {
-    return Container(
-      width: 4,
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(2),
-      ),
-      child: Stack(
-        children: [
-          // 전체 인디케이터 배경
-          Container(
-            width: 4,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-
-          // 현재 페이지 인디케이터
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            top: (_currentPage / 9) *
-                (MediaQuery.of(context).size.height * 0.4 - 40),
-            child: Container(
-              width: 4,
-              height: 40,
-              decoration: BoxDecoration(
-                color: AppColor.font1,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 네비게이션 힌트
-  Widget _buildNavigationHint() {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.7),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+    return RepaintBoundary(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(
           children: [
-            Icon(
-              Icons.keyboard_arrow_up,
-              color: Colors.white70,
-              size: 16,
-            ),
-            const SizedBox(width: 4),
-            Text(
-              '${_currentPage + 1} / 10',
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+            // 메인 스크롤 콘텐츠
+            SingleChildScrollView(
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  // 각 페이지를 순서대로 배치
+                  _buildOptimizedPageWrapper(Desktop1(), 0),
+                  _buildOptimizedPageWrapper(Desktop2(), 1),
+                  _buildOptimizedPageWrapper(Desktop3(), 2),
+                  _buildOptimizedPageWrapper(Desktop4(), 3),
+                  _buildOptimizedPageWrapper(Desktop5(), 4),
+                  _buildOptimizedPageWrapper(Desktop6(), 5),
+                  _buildOptimizedPageWrapper(Desktop7(), 6),
+                  _buildOptimizedPageWrapper(Desktop8(), 7),
+                  _buildOptimizedPageWrapper(Desktop9(), 8),
+                  _buildOptimizedPageWrapper(Desktop10(), 9),
+                ],
               ),
             ),
-            const SizedBox(width: 4),
-            Icon(
-              Icons.keyboard_arrow_down,
-              color: Colors.white70,
-              size: 16,
+            // 고정 버튼 (중앙 하단)
+            Positioned(
+              bottom: 40,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  width: 950,
+                  height: 95,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff414042).withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Expanded(
+                          child: Text(
+                            '편리하고 안전하게 상담기록 관리하기',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        InkWell(
+                          onTap: () =>
+                              _launchURL('https://questschoolmall.kr/code'),
+                          child: Container(
+                            width: 254,
+                            height: 52,
+                            decoration: BoxDecoration(
+                              color: AppColor.font1,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                '가입 신청하기',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildOptimizedPageWrapper(Widget page, int index) {
+    // 5번째, 6번째, 7번째 페이지만 높이를 늘림 (인덱스 4, 5, 6)
+    double pageHeight = MediaQuery.of(context).size.height;
+    if (index == 4) {
+      // desktop5
+      pageHeight = MediaQuery.of(context).size.height * 2.2;
+    } else if (index == 5) {
+      // desktop6
+      pageHeight = MediaQuery.of(context).size.height * 1.2;
+    } else if (index == 6) {
+      // desktop7
+      pageHeight = MediaQuery.of(context).size.height * 2.35;
+    }
+
+    return RepaintBoundary(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: pageHeight,
+        child: page,
       ),
     );
   }

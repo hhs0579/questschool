@@ -3,105 +3,18 @@ import 'package:quest/components/color.dart';
 import 'package:quest/components/painter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+
 class Desktop4 extends StatefulWidget {
   const Desktop4({super.key});
 
   @override
   State<Desktop4> createState() => _Desktop4State();
-  
 }
 
-class _Desktop4State extends State<Desktop4> 
-      with AutomaticKeepAliveClientMixin {
-  late YoutubePlayerController _controller;
-  bool _isInView = true;
-  bool _isLoading = false;
-  bool _hasError = false;
-
+class _Desktop4State extends State<Desktop4>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    _initController();
-  }
-
-  void _initController() {
-    _controller = YoutubePlayerController(
-      params: const YoutubePlayerParams(
-        mute: false,
-        showControls: true,
-        showFullscreenButton: true,
-        loop: false,
-      ),
-    );
-
-    _loadVideo();
-  }
-
-  void _loadVideo() {
-    try {
-      _controller.loadVideoById(
-        videoId: 'LUWbfI17_UU',
-      );
-
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _hasError = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _hasError = true;
-        });
-      }
-      print('비디오 로딩 오류: $e');
-    }
-  }
-
-  @override
-  void dispose() {
-    try {
-      _controller.close();
-    } catch (e) {
-      print('Controller dispose 오류: $e');
-    }
-    super.dispose();
-  }
-
-  void _handleVisibilityChange() {
-    if (!mounted) return;
-
-    try {
-      final renderObject = context.findRenderObject();
-      if (renderObject == null) return;
-
-      final RenderBox box = renderObject as RenderBox;
-      final Offset position = box.localToGlobal(Offset.zero);
-      final Size size = box.size;
-
-      final screenHeight = MediaQuery.of(context).size.height;
-      final isVisible =
-          position.dy < screenHeight && position.dy + size.height > 0;
-
-      if (isVisible != _isInView) {
-        setState(() {
-          _isInView = isVisible;
-        });
-        if (!isVisible && !_hasError) {
-          _controller.pauseVideo();
-        }
-      }
-    } catch (e) {
-      print('Visibility 체크 오류: $e');
-    }
-  }
 
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
@@ -144,128 +57,11 @@ class _Desktop4State extends State<Desktop4>
     }
   }
 
-
-  Widget _buildVideoPlayer() {
-    if (_hasError) {
-      return _buildErrorWidget();
-    }
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // 사용 가능한 공간 계산
-        final availableWidth = constraints.maxWidth;
-        final availableHeight = constraints.maxHeight;
-
-        // 16:9 비율로 계산했을 때의 크기
-        final videoWidth = availableWidth;
-        final videoHeight = videoWidth * 9 / 16;
-
-        // 높이가 넘치면 높이 기준으로 계산
-        if (videoHeight > availableHeight) {
-          final adjustedHeight = availableHeight;
-          final adjustedWidth = adjustedHeight * 16 / 9;
-
-          return Center(
-            child: SizedBox(
-              width: adjustedWidth,
-              height: adjustedHeight,
-              child: YoutubePlayer(
-                controller: _controller,
-                aspectRatio: 16 / 9,
-              ),
-            ),
-          );
-        }
-
-        // 기본 AspectRatio 사용
-        return AspectRatio(
-          aspectRatio: 16 / 9,
-          child: YoutubePlayer(
-            controller: _controller,
-            aspectRatio: 16 / 9,
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildLoadingWidget() {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: Container(
-        color: Colors.black12,
-        child: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text(
-                '비디오 로딩 중...',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildErrorWidget() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Container(
-          width: constraints.maxWidth,
-          height: constraints.maxHeight,
-          color: Colors.grey[100],
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 48,
-                  color: Colors.grey[600],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  '비디오를 불러올 수 없습니다',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    _loadVideo();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.font1,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                  ),
-                  child: const Text('다시 시도'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    super.build(context);
+    return RepaintBoundary(
+        child: Scaffold(
       backgroundColor: const Color(0xffFFFFFF),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -538,59 +334,11 @@ class _Desktop4State extends State<Desktop4>
                 SizedBox(
                   height: 56,
                 ),
-                Positioned(
-                  bottom: 38,
-                  left: (MediaQuery.of(context).size.width - 970) / 2,
-                  child: Container(
-                    width: 970,
-                    height: 95,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff414042),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            '편리하고 안전하게 상담기록 관리하기',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
-                          InkWell(
-                            onTap: () =>
-                                _launchURL('https://questschoolmall.kr/code'),
-                            child: Container(
-                              width: 254,
-                              height: 52,
-                              decoration: BoxDecoration(
-                                color: AppColor.font1,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  '가입 신청하기&학교 코드 신청하기',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
               ],
             ),
           );
         },
       ),
-    );
+    ));
   }
 }
