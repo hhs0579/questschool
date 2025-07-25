@@ -482,8 +482,7 @@ class _Desktop9State extends State<Desktop9> {
                                 horizontal: 12, vertical: 10),
                             child: TextFormField(
                               controller: nameController,
-                              textAlign:
-                                  isMobile ? TextAlign.center : TextAlign.start,
+                              textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: '이름을 입력해주세요.',

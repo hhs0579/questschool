@@ -103,7 +103,7 @@ class _Desktop7State extends State<Desktop7> {
 
     return Container(
       width: isMobile ? screenWidth * 0.9 : 1200,
-      height: isMobile ? 120 : 158,
+      height: isMobile ? 160 : 200,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(isMobile ? 8 : 10),
@@ -211,7 +211,7 @@ class _Desktop7State extends State<Desktop7> {
 
     return Container(
       width: isMobile ? screenWidth * 0.9 : 1200,
-      height: isMobile ? 120 : 158,
+      height: isMobile ? 160 : 200,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(isMobile ? 8 : 10),

@@ -203,7 +203,7 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1300;
     } else if (index == 6) {
       // desktop7 - 가장 긴 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.0 : 2600;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.2 : 2600;
     } else if (index == 7) {
       // desktop9 - 가장 긴 콘텐츠
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
