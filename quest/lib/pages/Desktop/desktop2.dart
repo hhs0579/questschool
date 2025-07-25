@@ -80,7 +80,7 @@ class _Desktop2State extends State<Desktop2>
     } else if (screenWidth > 600) {
       return const EdgeInsets.symmetric(horizontal: 30, vertical: 30);
     } else {
-      return const EdgeInsets.symmetric(horizontal: 20, vertical: 20);
+      return const EdgeInsets.symmetric(horizontal: 20, vertical: 10);
     }
   }
 
@@ -112,61 +112,61 @@ class _Desktop2State extends State<Desktop2>
             return Container(
               width: screenWidth,
               height: screenHeight,
-              child: Column(
-                children: [
-                  // 상단 제목
-                  Container(
-                    padding: const EdgeInsets.only(top: 60, bottom: 20),
-                    child: Text.rich(
-                      TextSpan(
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth > 600 ? 36 : 28,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '퀘스트스쿨',
-                            style: TextStyle(color: AppColor.font1),
-                          ),
-                          const TextSpan(text: '의 홍보용 영상'),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  // 비디오 컨테이너
-                  Expanded(
-                    child: Container(
-                      padding: responsivePadding,
-                      child: Center(
-                        child: Container(
-                          width: double.infinity,
-                          constraints: const BoxConstraints(
-                            maxWidth: 1200,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(borderRadius),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
+              child: Center(
+                child: Container(
+                  padding: responsivePadding,
+                  child: Column(
+                    mainAxisAlignment: screenWidth > 600
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
+                    children: [
+                      // 상단 제목 (데스크톱에서만 표시)
+                      if (screenWidth > 600)
+                        Container(
+                          padding: EdgeInsets.only(bottom: 40),
+                          child: Text.rich(
+                            TextSpan(
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 36,
+                                color: Colors.black,
                               ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(borderRadius),
-                            child: _buildVideoContent(),
+                              children: [
+                                TextSpan(
+                                  text: '퀘스트스쿨',
+                                  style: TextStyle(color: AppColor.font1),
+                                ),
+                                const TextSpan(text: '의 홍보용 영상'),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
 
-                  // 하단 여백
-                  const SizedBox(height: 40),
-                ],
+                      // 비디오 컨테이너
+                      Container(
+                        width: double.infinity,
+                        constraints: BoxConstraints(
+                          maxWidth:
+                              screenWidth > 600 ? 1200 : screenWidth * 0.9,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          child: _buildVideoContent(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             );
           },

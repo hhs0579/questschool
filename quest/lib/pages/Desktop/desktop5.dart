@@ -64,12 +64,12 @@ class _Desktop5State extends State<Desktop5> {
               height: screenHeight,
               padding: EdgeInsets.symmetric(
                 horizontal: screenWidth > 1400 ? 60 : 20,
-                vertical: 40,
+                vertical: screenWidth < 768 ? 20 : 40,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 80),
+                  SizedBox(height: screenWidth < 768 ? 20 : 80),
                   _buildTitleSection(screenWidth),
                   SizedBox(height: 60),
                   _buildContentCard(

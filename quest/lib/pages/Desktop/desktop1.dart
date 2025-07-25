@@ -26,6 +26,9 @@ class _Desktop1State extends State<Desktop1> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
     return RepaintBoundary(
       child: Scaffold(
         body: LayoutBuilder(
@@ -53,7 +56,10 @@ class _Desktop1State extends State<Desktop1> {
                     Positioned.fill(
                       // 전체 화면을 채우는 SVG 배경
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 100),
+                        padding: EdgeInsets.only(
+                          right: isMobile ? 20 : 100,
+                          left: isMobile ? 20 : 0,
+                        ),
                         child: Image.asset(
                           'assets/images/desk1.png', // SVG 파일 경로
                           fit: BoxFit.contain,
@@ -65,93 +71,87 @@ class _Desktop1State extends State<Desktop1> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 89,
+                          SizedBox(
+                            height: isMobile ? 40 : 89,
                           ),
                           Container(
-                            width: 259,
-                            height: 44,
+                            width: isMobile ? screenWidth * 0.6 : 259,
+                            height: isMobile ? 40 : 44,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(99),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 '상담 스케줄링이 이렇게 쉽다고?',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: AppColor.font1,
-                                    fontSize: 16),
+                                    fontSize: isMobile ? 14 : 16),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 12,
+                          SizedBox(
+                            height: isMobile ? 8 : 12,
                           ),
-                          const Text(
+                          Text(
                             '교내 진로진학 상담 솔루션',
                             style: TextStyle(
-                                fontWeight: FontWeight.w800,
+                                fontWeight: FontWeight.w600,
                                 color: Colors.black,
-                                fontSize: 36),
+                                fontSize: isMobile ? 24 : 36),
+                            textAlign: TextAlign.center,
                           ),
-                          const SizedBox(
-                            height: 8,
+                          SizedBox(
+                            height: isMobile ? 6 : 8,
                           ),
                           SvgPicture.asset(
                             'assets/images/logo.svg',
-                            width: 304,
-                            height: 40,
+                            width: isMobile ? 200 : 304,
+                            height: isMobile ? 26 : 40,
                           ),
-                          const SizedBox(
-                            height: 20,
+                          SizedBox(
+                            height: isMobile ? 15 : 20,
                           ),
-                          const Text(
+                          Text(
                             '퀘스트스쿨은 PC(교사용)와 모바일(학생용)을 통해',
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                fontSize: 16),
+                                color: Colors.grey[700],
+                                fontSize: isMobile ? 14 : 16),
+                            textAlign: TextAlign.center,
                           ),
-                          const Text(
+                          Text(
                             '쉽고 간편하게 진로진학 상담 스케줄링이 가능합니다!',
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                fontSize: 16),
+                                color: Colors.grey[700],
+                                fontSize: isMobile ? 14 : 16),
+                            textAlign: TextAlign.center,
                           ),
-                          const SizedBox(
-                            height: 40,
+                          SizedBox(
+                            height: isMobile ? 30 : 40,
                           ),
                           InkWell(
                             onTap: () =>
                                 _launchURL('https://aboutquestschool.kr/'),
                             child: Container(
-                              height: 52,
-                              width: 170,
+                              height: isMobile ? 48 : 56,
+                              width: isMobile ? 180 : 180,
                               decoration: BoxDecoration(
                                 color: AppColor.font1,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  SvgPicture.asset(
-                                    'assets/images/logo2.svg',
-                                    width: 120,
-                                    height: 14,
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Center(
+                                  Center(
                                     child: Text(
-                                      '바로가기',
+                                      '퀘스트스쿨 바로가기',
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: isMobile ? 18 : 18,
                                           fontWeight: FontWeight.w600),
                                     ),
                                   ),

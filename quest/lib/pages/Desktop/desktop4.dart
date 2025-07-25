@@ -65,280 +65,332 @@ class _Desktop4State extends State<Desktop4>
       backgroundColor: const Color(0xffFFFFFF),
       body: LayoutBuilder(
         builder: (context, constraints) {
+          final screenWidth = MediaQuery.of(context).size.width;
+          final isMobile = screenWidth < 768;
           return Container(
-            padding: EdgeInsets.only(
-              top: 120,
-            ),
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height,
-            ),
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  '교내 진로진학 상담을 간편하고 신속하게!',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.font5),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Row(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
+              ),
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '이제 ',
+                      '교내 진로진학 상담을 간편하고 신속하게!',
                       style: TextStyle(
-                          fontSize: 48,
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.w600),
+                          fontSize: isMobile ? 16 : 20,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.font5),
+                      textAlign: isMobile ? TextAlign.center : TextAlign.left,
                     ),
-                    Text(
-                      '퀘스트스쿨',
-                      style: TextStyle(
-                          fontSize: 48,
-                          color: AppColor.font1,
-                          fontWeight: FontWeight.w600),
+                    SizedBox(
+                      height: 12,
                     ),
-                    Text(
-                      '이 ',
-                      style: TextStyle(
-                          fontSize: 48,
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.w600),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '이제 ',
+                          style: TextStyle(
+                              fontSize: isMobile ? 28 : 48,
+                              color: AppColor.primary,
+                              fontWeight: FontWeight.w500),
+                          textAlign:
+                              isMobile ? TextAlign.center : TextAlign.left,
+                        ),
+                        Text(
+                          '퀘스트스쿨',
+                          style: TextStyle(
+                              fontSize: isMobile ? 28 : 48,
+                              color: AppColor.font1,
+                              fontWeight: FontWeight.w500),
+                          textAlign:
+                              isMobile ? TextAlign.center : TextAlign.left,
+                        ),
+                        Text(
+                          '이 ',
+                          style: TextStyle(
+                              fontSize: isMobile ? 28 : 48,
+                              color: AppColor.primary,
+                              fontWeight: FontWeight.w500),
+                          textAlign:
+                              isMobile ? TextAlign.center : TextAlign.left,
+                        ),
+                        Text(
+                          '도와드릴게요! ',
+                          style: TextStyle(
+                              fontSize: isMobile ? 28 : 48,
+                              color: AppColor.primary,
+                              fontWeight: FontWeight.w500),
+                          textAlign:
+                              isMobile ? TextAlign.center : TextAlign.left,
+                        ),
+                      ],
                     ),
-                    Text(
-                      '도와드릴게요! ',
-                      style: TextStyle(
-                          fontSize: 48,
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.w600),
+                    SizedBox(
+                      height: isMobile ? 32 : 55,
+                    ),
+                    isMobile
+                        ? Column(
+                            children: [
+                              _buildDesktopCard(
+                                color: Color(0xffEEF9EF),
+                                label: 'WORK EFFICIENCY',
+                                labelColor: Colors.white,
+                                labelBg: Color(0xff55C45B),
+                                title: '업무 효율성',
+                                desc1: '일정 관리부터 상담 기록까지 퀘스트스쿨로!',
+                                desc2: '상담 기록은 엑셀로 다운로드 가능합니다',
+                                image: 'assets/images/i6.png',
+                              ),
+                              SizedBox(height: 24),
+                              _buildDesktopCard(
+                                color: Color(0xffFFFCE5),
+                                label: 'Real-time Notification',
+                                labelColor: Colors.black,
+                                labelBg: Color(0xffFEE500),
+                                title: '실시간 알림',
+                                desc1: '상담 신청과 승인 알림이 카카오 알림톡으로',
+                                desc2: '전달되어 신속한 스케줄링이 가능합니다.',
+                                image: 'assets/images/i7.png',
+                              ),
+                              SizedBox(height: 24),
+                              _buildDesktopCard(
+                                color: Color(0xffEEFAFF),
+                                label: 'SAFE DATA',
+                                labelColor: Colors.white,
+                                labelBg: Color(0xff55D2FF),
+                                title: '데이터는 안전하게',
+                                desc1: '국제적으로 가장 권위있는 개인 정보 보호,',
+                                desc2: '정보 보안 ISO 27001 인증을 획득했습니다.',
+                                image: 'assets/images/i8.png',
+                              ),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _buildDesktopCard(
+                                color: Color(0xffEEF9EF),
+                                label: 'WORK EFFICIENCY',
+                                labelColor: Colors.white,
+                                labelBg: Color(0xff55C45B),
+                                title: '업무 효율성',
+                                desc1: '일정 관리부터 상담 기록까지 퀘스트스쿨로!',
+                                desc2: '상담 기록은 엑셀로 다운로드 가능합니다',
+                                image: 'assets/images/i6.png',
+                              ),
+                              SizedBox(width: 48),
+                              _buildDesktopCard(
+                                color: Color(0xffFFFCE5),
+                                label: 'Real-time Notification',
+                                labelColor: Colors.black,
+                                labelBg: Color(0xffFEE500),
+                                title: '실시간 알림',
+                                desc1: '상담 신청과 승인 알림이 카카오 알림톡으로',
+                                desc2: '전달되어 신속한 스케줄링이 가능합니다.',
+                                image: 'assets/images/i7.png',
+                              ),
+                              SizedBox(width: 48),
+                              _buildDesktopCard(
+                                color: Color(0xffEEFAFF),
+                                label: 'SAFE DATA',
+                                labelColor: Colors.white,
+                                labelBg: Color(0xff55D2FF),
+                                title: '데이터는 안전하게',
+                                desc1: '국제적으로 가장 권위있는 개인 정보 보호,',
+                                desc2: '정보 보안 ISO 27001 인증을 획득했습니다.',
+                                image: 'assets/images/i8.png',
+                              ),
+                            ],
+                          ),
+                    SizedBox(
+                      height: isMobile ? 40 : 56,
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 55,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 400,
-                      width: 385,
-                      padding: EdgeInsets.only(
-                          top: 40, bottom: 40, left: 36, right: 36),
-                      decoration: BoxDecoration(
-                          color: Color(0xffEEF9EF),
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Stack(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 144,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                    color: Color(0xff55C45B),
-                                    borderRadius: BorderRadius.circular(18)),
-                                child: Center(
-                                    child: Text(
-                                  'WORK EFFICIENCY',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                )),
-                              ),
-                              SizedBox(
-                                height: 24,
-                              ),
-                              Text(
-                                '업무 효율성',
-                                style: TextStyle(
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.primary),
-                              ),
-                              SizedBox(
-                                height: 12,
-                              ),
-                              Text(
-                                '일정 관리부터 상담 기록까지 퀘스트스쿨로!',
-                                style: TextStyle(
-                                    color: AppColor.font5, fontSize: 16),
-                              ),
-                              Text(
-                                '상담 기록은 엑셀로 다운로드 가능합니다',
-                                style: TextStyle(
-                                    color: AppColor.font5, fontSize: 16),
-                              )
-                            ],
-                          ),
-                          // 아이콘을 오른쪽 아래에 배치
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              child: Image.asset('assets/images/i6.png'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 48,
-                    ),
-                    Container(
-                      height: 400,
-                      width: 385,
-                      padding: EdgeInsets.only(
-                          top: 40, bottom: 40, left: 36, right: 36),
-                      decoration: BoxDecoration(
-                          color: Color(0xffFFFCE5),
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Stack(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 190,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                    color: Color(0xffFEE500),
-                                    borderRadius: BorderRadius.circular(18)),
-                                child: Center(
-                                    child: Text(
-                                  'Real-time Notification',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                )),
-                              ),
-                              SizedBox(
-                                height: 24,
-                              ),
-                              Text(
-                                '실시간 알림',
-                                style: TextStyle(
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.primary),
-                              ),
-                              SizedBox(
-                                height: 12,
-                              ),
-                              Text(
-                                '상담 신청과 승인 알림이 카카오 알림톡으로',
-                                style: TextStyle(
-                                    color: AppColor.font5, fontSize: 16),
-                              ),
-                              Text(
-                                '전달되어 신속한 스케줄링이 가능합니다.',
-                                style: TextStyle(
-                                    color: AppColor.font5, fontSize: 16),
-                              )
-                            ],
-                          ),
-                          // 아이콘을 오른쪽 아래에 배치
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              child: Image.asset('assets/images/i7.png'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 48,
-                    ),
-                    Container(
-                      height: 400,
-                      width: 385,
-                      padding: EdgeInsets.only(
-                          top: 40, bottom: 40, left: 36, right: 36),
-                      decoration: BoxDecoration(
-                          color: Color(0xffEEFAFF),
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Stack(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 95,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                    color: Color(0xff55D2FF),
-                                    borderRadius: BorderRadius.circular(18)),
-                                child: Center(
-                                    child: Text(
-                                  'SAFE DATA',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                )),
-                              ),
-                              SizedBox(
-                                height: 24,
-                              ),
-                              Text(
-                                '데이터는 안전하게',
-                                style: TextStyle(
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.primary),
-                              ),
-                              SizedBox(
-                                height: 12,
-                              ),
-                              Text(
-                                '국제적으로 가장 권위있는 개인 정보 보호,',
-                                style: TextStyle(
-                                    color: AppColor.font5, fontSize: 16),
-                              ),
-                              Text(
-                                '정보 보안 ISO 27001 인증을 획득했습니다.',
-                                style: TextStyle(
-                                    color: AppColor.font5, fontSize: 16),
-                              )
-                            ],
-                          ),
-                          // 아이콘을 오른쪽 아래에 배치
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              child: Image.asset('assets/images/i8.png'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 56,
-                ),
-              ],
-            ),
-          );
+              ));
         },
       ),
     ));
+  }
+
+  Widget _buildMobileCard({
+    required Color color,
+    required String label,
+    required Color labelColor,
+    required Color labelBg,
+    required String title,
+    required String desc1,
+    required String desc2,
+    required String image,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 140,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: labelBg,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Center(
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      color: labelColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.primary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 12),
+              Text(
+                desc1,
+                style: TextStyle(
+                  color: AppColor.font5,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                desc2,
+                style: TextStyle(
+                  color: AppColor.font5,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              width: 80,
+              height: 80,
+              child: Image.asset(image),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopCard({
+    required Color color,
+    required String label,
+    required Color labelColor,
+    required Color labelBg,
+    required String title,
+    required String desc1,
+    required String desc2,
+    required String image,
+  }) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
+    // Real-time Notification 라벨의 경우 모바일에서 더 긴 width 적용
+    double labelWidth = 144;
+    if (label == 'Real-time Notification' && isMobile) {
+      labelWidth = 200;
+    } else if (label == 'Real-time Notification') {
+      labelWidth = 190;
+    } else if (label == 'SAFE DATA') {
+      labelWidth = 95;
+    }
+
+    return Container(
+      height: 400,
+      width: 385,
+      padding: EdgeInsets.only(top: 40, bottom: 40, left: 36, right: 36),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: labelWidth,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: labelBg,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Center(
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      color: labelColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 24),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.primary,
+                ),
+              ),
+              SizedBox(height: 12),
+              Text(
+                desc1,
+                style: TextStyle(
+                  color: AppColor.font5,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                desc2,
+                style: TextStyle(
+                  color: AppColor.font5,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              width: 120,
+              height: 120,
+              child: Image.asset(image),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

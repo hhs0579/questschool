@@ -44,6 +44,9 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
     return RepaintBoundary(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -65,19 +68,18 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                   _buildOptimizedPageWrapper(Desktop7(), 6),
                   _buildOptimizedPageWrapper(Desktop8(), 7),
                   _buildOptimizedPageWrapper(Desktop9(), 8),
-                  _buildOptimizedPageWrapper(Desktop10(), 9),
                 ],
               ),
             ),
             // 고정 버튼 (중앙 하단)
             Positioned(
-              bottom: 40,
+              bottom: isMobile ? 20 : 40,
               left: 0,
               right: 0,
               child: Center(
                 child: Container(
-                  width: 950,
-                  height: 95,
+                  width: isMobile ? screenWidth * 0.9 : 950,
+                  height: isMobile ? 120 : 95,
                   decoration: BoxDecoration(
                     color: const Color(0xff414042).withOpacity(0.9),
                     borderRadius: BorderRadius.circular(15),
@@ -90,45 +92,83 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Expanded(
-                          child: Text(
-                            '편리하고 안전하게 상담기록 관리하기',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        InkWell(
-                          onTap: () =>
-                              _launchURL('https://questschoolmall.kr/code'),
-                          child: Container(
-                            width: 254,
-                            height: 52,
-                            decoration: BoxDecoration(
-                              color: AppColor.font1,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                '가입 신청하기',
+                    padding: EdgeInsets.all(isMobile ? 15.0 : 20.0),
+                    child: isMobile
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '편리하고 안전하게 상담기록 관리하기',
                                 style: TextStyle(
-                                  color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 12),
+                              InkWell(
+                                onTap: () => _launchURL(
+                                    'https://questschoolmall.kr/code'),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.font1,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '가입 신청하기&학교코드 신청하기',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '편리하고 안전하게 상담기록 관리하기',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              InkWell(
+                                onTap: () => _launchURL(
+                                    'https://questschoolmall.kr/code'),
+                                child: Container(
+                                  width: 254,
+                                  height: 52,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.font1,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '가입 신청하기&학교코드 신청하기',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ),
@@ -140,24 +180,45 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
   }
 
   Widget _buildOptimizedPageWrapper(Widget page, int index) {
-    // 5번째, 6번째, 7번째 페이지만 높이를 늘림 (인덱스 4, 5, 6)
-    double pageHeight = MediaQuery.of(context).size.height;
-    if (index == 4) {
-      // desktop5
-      pageHeight = MediaQuery.of(context).size.height * 2.2;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
+    // 모바일에서는 화면 높이에 맞춰 조정
+    double pageHeight = isMobile ? MediaQuery.of(context).size.height : 1080;
+
+    if (index == 1) {
+      // desktop2 - 비디오 페이지 (모바일에서 짧게)
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 0.5 : 1080;
+    } else if (index == 2) {
+      // desktop3 - 텍스트와 카드 페이지
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.8 : 1080;
+    } else if (index == 3) {
+      // desktop4 - 카드 세로 배치 페이지
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.2 : 1080;
+    } else if (index == 4) {
+      // desktop5 - 더 긴 콘텐츠
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.1 : 2400;
     } else if (index == 5) {
-      // desktop6
-      pageHeight = MediaQuery.of(context).size.height * 1.2;
+      // desktop6 - 중간 길이 콘텐츠
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1300;
     } else if (index == 6) {
-      // desktop7
-      pageHeight = MediaQuery.of(context).size.height * 2.35;
+      // desktop7 - 가장 긴 콘텐츠
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.0 : 2600;
+    } else if (index == 7) {
+      // desktop9 - 가장 긴 콘텐츠
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
+    } else if (index == 8) {
+      // desktop9 - 가장 긴 콘텐츠
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3 : 2400;
     }
 
     return RepaintBoundary(
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: pageHeight,
-        child: page,
+        child: Center(
+          child: page,
+        ),
       ),
     );
   }
