@@ -93,7 +93,7 @@ class _Desktop1State extends State<Desktop1> {
                             ),
                           ),
                           SizedBox(
-                            height: isMobile ? 8 : 12,
+                            height: isMobile ? 12 : 20,
                           ),
                           Text(
                             '교내 진로진학 상담 솔루션',
@@ -117,7 +117,7 @@ class _Desktop1State extends State<Desktop1> {
                           Text(
                             '퀘스트스쿨은 PC(교사용)와 모바일(학생용)을 통해',
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.grey[700],
                                 fontSize: isMobile ? 14 : 16),
                             textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class _Desktop1State extends State<Desktop1> {
                           Text(
                             '쉽고 간편하게 진로진학 상담 스케줄링이 가능합니다!',
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.grey[700],
                                 fontSize: isMobile ? 14 : 16),
                             textAlign: TextAlign.center,

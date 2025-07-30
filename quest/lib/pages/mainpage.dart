@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:quest/components/screensized.dart';
 
-import 'package:quest/pages/Desktop/desktoppage.dart';
 import 'package:quest/pages/Desktop/pageview.dart';
 
 // CustomScrollPhysics 클래스 추가

@@ -124,7 +124,7 @@ class _Desktop5State extends State<Desktop5> {
           style: TextStyle(
               color: AppColor.font5,
               fontSize: subtitleFontSize,
-              fontWeight: FontWeight.w700),
+              fontWeight: FontWeight.w500),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 12),
@@ -140,7 +140,7 @@ class _Desktop5State extends State<Desktop5> {
                 style: TextStyle(
                     fontSize: titleFontSize,
                     color: AppColor.primary,
-                    fontWeight: FontWeight.w600)),
+                    fontWeight: FontWeight.w500)),
           ],
         ),
       ],

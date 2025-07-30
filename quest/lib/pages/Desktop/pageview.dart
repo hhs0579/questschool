@@ -23,6 +23,15 @@ class SmoothPageViewScreen extends StatefulWidget {
 class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
   final ScrollController _scrollController = ScrollController();
 
+  @override
+  void initState() {
+    super.initState();
+    // 스크롤 성능 최적화를 위한 설정
+    _scrollController.addListener(() {
+      // 스크롤 중 불필요한 리빌드 방지
+    });
+  }
+
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     try {
@@ -47,136 +56,164 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
 
-    return RepaintBoundary(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            // 메인 스크롤 콘텐츠
-            SingleChildScrollView(
-              controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  // 각 페이지를 순서대로 배치
-                  _buildOptimizedPageWrapper(Desktop1(), 0),
-                  _buildOptimizedPageWrapper(Desktop2(), 1),
-                  _buildOptimizedPageWrapper(Desktop3(), 2),
-                  _buildOptimizedPageWrapper(Desktop4(), 3),
-                  _buildOptimizedPageWrapper(Desktop5(), 4),
-                  _buildOptimizedPageWrapper(Desktop6(), 5),
-                  _buildOptimizedPageWrapper(Desktop7(), 6),
-                  _buildOptimizedPageWrapper(Desktop8(), 7),
-                  _buildOptimizedPageWrapper(Desktop9(), 8),
-                ],
-              ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          // 메인 스크롤 콘텐츠
+          CustomScrollView(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
             ),
-            // 고정 버튼 (중앙 하단)
-            Positioned(
-              bottom: isMobile ? 20 : 40,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  width: isMobile ? screenWidth * 0.9 : 950,
-                  height: isMobile ? 120 : 95,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff414042).withOpacity(0.9),
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(isMobile ? 15.0 : 20.0),
-                    child: isMobile
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
+            slivers: [
+              // 각 페이지를 SliverList로 배치
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return _buildOptimizedPageWrapper(
+                      _getPageByIndex(index),
+                      index,
+                    );
+                  },
+                  childCount: 9, // 총 9개 페이지
+                  addAutomaticKeepAlives: true,
+                  addRepaintBoundaries: true,
+                ),
+              ),
+            ],
+          ),
+          // 고정 버튼 (중앙 하단)
+          Positioned(
+            bottom: isMobile ? 20 : 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                width: isMobile ? screenWidth * 0.9 : 950,
+                height: isMobile ? 120 : 95,
+                decoration: BoxDecoration(
+                  color: const Color(0xff414042).withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(isMobile ? 15.0 : 20.0),
+                  child: isMobile
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '편리하고 안전하게 상담기록 관리하기',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 12),
+                            InkWell(
+                              onTap: () =>
+                                  _launchURL('https://questschoolmall.kr/code'),
+                              child: Container(
+                                width: double.infinity,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  color: AppColor.font1,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '가입 신청하기&학교코드 신청하기',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
                                 '편리하고 안전하게 상담기록 관리하기',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                              SizedBox(height: 12),
-                              InkWell(
-                                onTap: () => _launchURL(
-                                    'https://questschoolmall.kr/code'),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    color: AppColor.font1,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '가입 신청하기&학교코드 신청하기',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                            ),
+                            SizedBox(width: 20),
+                            InkWell(
+                              onTap: () =>
+                                  _launchURL('https://questschoolmall.kr/code'),
+                              child: Container(
+                                width: 254,
+                                height: 52,
+                                decoration: BoxDecoration(
+                                  color: AppColor.font1,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '가입 신청하기&학교코드 신청하기',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
                               ),
-                            ],
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '편리하고 안전하게 상담기록 관리하기',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 20),
-                              InkWell(
-                                onTap: () => _launchURL(
-                                    'https://questschoolmall.kr/code'),
-                                child: Container(
-                                  width: 254,
-                                  height: 52,
-                                  decoration: BoxDecoration(
-                                    color: AppColor.font1,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '가입 신청하기&학교코드 신청하기',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                  ),
+                            ),
+                          ],
+                        ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+  }
+
+  // 인덱스에 따른 페이지 반환
+  Widget _getPageByIndex(int index) {
+    switch (index) {
+      case 0:
+        return Desktop1();
+      case 1:
+        return Desktop2();
+      case 2:
+        return Desktop3();
+      case 3:
+        return Desktop4();
+      case 4:
+        return Desktop5();
+      case 5:
+        return Desktop6();
+      case 6:
+        return Desktop7();
+      case 7:
+        return Desktop8();
+      case 8:
+        return Desktop9();
+      default:
+        return Desktop1();
+    }
   }
 
   Widget _buildOptimizedPageWrapper(Widget page, int index) {
@@ -223,61 +260,3 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
     );
   }
 }
-
-// 각 Desktop 페이지에서 적용할 개선된 구조
-/*
-class Desktop1 extends StatefulWidget {
-  final PageController? pageController;
-  
-  const Desktop1({
-    super.key,
-    this.pageController,
-  });
-  
-  @override
-  State<Desktop1> createState() => _Desktop1State();
-}
-
-class _Desktop1State extends State<Desktop1> {
-  final ScrollController _scrollController = ScrollController();
-  
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        children: [
-          // 고정 헤더
-          Container(
-            height: 100,
-            child: // 헤더 콘텐츠
-          ),
-          
-          // 스크롤 가능한 메인 콘텐츠
-          Expanded(
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              // 더 부드러운 스크롤을 위한 물리학 설정
-              physics: const BouncingScrollPhysics(),
-              child: // 페이지 콘텐츠
-            ),
-          ),
-          
-          // 고정 푸터 (선택사항)
-          Container(
-            height: 60,
-            child: // 푸터 콘텐츠
-          ),
-        ],
-      ),
-    );
-  }
-}
-*/

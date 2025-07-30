@@ -45,47 +45,6 @@ class _Desktop6State extends State<Desktop6> {
   @override
   void initState() {
     super.initState();
-    _startAutoScroll();
-    _startAutoScroll2();
-  }
-
-  void _startAutoScroll() {
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        _scrollController
-            .animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(seconds: 30),
-          curve: Curves.linear,
-        )
-            .then((_) {
-          if (mounted) {
-            _scrollController.jumpTo(0);
-            _startAutoScroll();
-          }
-        });
-      }
-    });
-  }
-
-  void _startAutoScroll2() {
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        _scrollController2
-            .animateTo(
-          0,
-          duration: const Duration(seconds: 30),
-          curve: Curves.linear,
-        )
-            .then((_) {
-          if (mounted) {
-            _scrollController2
-                .jumpTo(_scrollController2.position.maxScrollExtent);
-            _startAutoScroll2();
-          }
-        });
-      }
-    });
   }
 
   Future<void> _launchURL(String url) async {
@@ -113,208 +72,206 @@ class _Desktop6State extends State<Desktop6> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
 
-    return RepaintBoundary(
-      child: Scaffold(
-        backgroundColor: const Color(0xffFF7700),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            return Container(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height,
-              ),
-              width: MediaQuery.of(context).size.width,
-              child: Stack(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                      top: isMobile ? 40 : (screenWidth < 1200 ? 80 : 120),
-                      bottom: isMobile ? 40 : (screenWidth < 1200 ? 80 : 120),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '실제 사용 후기',
-                          style: TextStyle(
-                            fontSize: isMobile ? 16 : 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(height: isMobile ? 8 : 12),
-                        Text(
-                          '선생님들과 학생들 모두 추천하는',
-                          style: TextStyle(
-                            fontSize:
-                                isMobile ? 24 : (screenWidth < 1200 ? 36 : 48),
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign:
-                              isMobile ? TextAlign.center : TextAlign.left,
-                        ),
-                        Text(
-                          '만족도 4.8의 퀘스트스쿨!',
-                          style: TextStyle(
-                            fontSize:
-                                isMobile ? 24 : (screenWidth < 1200 ? 36 : 48),
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign:
-                              isMobile ? TextAlign.center : TextAlign.left,
-                        ),
-                        SizedBox(height: isMobile ? 12 : 16),
-                        isMobile
-                            ? Column(
-                                children: [
-                                  _buildMobileStatItem(
-                                      '만족도', '5.0', 'assets/images/i9.png'),
-                                  SizedBox(height: 20),
-                                  _buildMobileStatItem(
-                                      '추천 지수', '100%', 'assets/images/i10.png'),
-                                ],
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      const Text(
-                                        '만족도',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                          fontSize: 24,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: 40,
-                                            height: 40,
-                                            child: Image.asset(
-                                                'assets/images/i9.png'),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(
-                                            '5.0',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize:
-                                                  screenWidth < 1200 ? 36 : 48,
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(width: 50),
-                                  Container(
-                                    width: 1,
-                                    height: 32,
-                                    color: const Color(0xffD9D9D9),
-                                  ),
-                                  const SizedBox(width: 50),
-                                  Column(
-                                    children: [
-                                      const Text(
-                                        '추천 지수',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                          fontSize: 24,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: 40,
-                                            height: 40,
-                                            child: Image.asset(
-                                                'assets/images/i10.png'),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(
-                                            '100%',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize:
-                                                  screenWidth < 1200 ? 36 : 48,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                        SizedBox(
-                            height:
-                                isMobile ? 20 : (screenWidth < 1200 ? 30 : 40)),
-                        RepaintBoundary(
-                          child: Container(
-                            height: isMobile
-                                ? 160
-                                : (screenWidth < 1200 ? 200 : 240),
-                            child: SingleChildScrollView(
-                              controller: _scrollController,
-                              scrollDirection: Axis.horizontal,
-                              physics: const NeverScrollableScrollPhysics(),
-                              child: Row(
-                                children: [
-                                  ...reviews
-                                      .map((review) => _buildReviewCard(
-                                          review, isMobile ? 160 : 220))
-                                      .toList(),
-                                  ...reviews
-                                      .take(3)
-                                      .map((review) => _buildReviewCard(
-                                          review, isMobile ? 160 : 220))
-                                      .toList(),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        RepaintBoundary(
-                          child: Container(
-                            height: isMobile
-                                ? 160
-                                : (screenWidth < 1200 ? 200 : 240),
-                            child: SingleChildScrollView(
-                              controller: _scrollController2,
-                              scrollDirection: Axis.horizontal,
-                              physics: const NeverScrollableScrollPhysics(),
-                              child: Row(
-                                children: [
-                                  ...reviews
-                                      .take(3)
-                                      .map((review) => _buildReviewCard(
-                                          review, isMobile ? 160 : 220))
-                                      .toList(),
-                                  ...reviews
-                                      .map((review) => _buildReviewCard(
-                                          review, isMobile ? 160 : 200))
-                                      .toList(),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+    return Scaffold(
+      backgroundColor: const Color(0xffFF7700),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Container(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
+            ),
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                    top: isMobile ? 40 : (screenWidth < 1200 ? 80 : 120),
+                    bottom: isMobile ? 40 : (screenWidth < 1200 ? 80 : 120),
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '실제 사용 후기',
+                        style: TextStyle(
+                          fontSize: isMobile ? 16 : 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: isMobile ? 8 : 12),
+                      Text(
+                        '선생님들과 학생들 모두 추천하는',
+                        style: TextStyle(
+                          fontSize:
+                              isMobile ? 24 : (screenWidth < 1200 ? 36 : 48),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                      ),
+                      Text(
+                        '만족도 4.8의 퀘스트스쿨!',
+                        style: TextStyle(
+                          fontSize:
+                              isMobile ? 24 : (screenWidth < 1200 ? 36 : 48),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                      ),
+                      SizedBox(height: isMobile ? 12 : 16),
+                      isMobile
+                          ? Column(
+                              children: [
+                                _buildMobileStatItem(
+                                    '만족도', '5.0', 'assets/images/i9.png'),
+                                SizedBox(height: 20),
+                                _buildMobileStatItem(
+                                    '추천 지수', '100%', 'assets/images/i10.png'),
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text(
+                                      '만족도',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: Image.asset(
+                                            'assets/images/i9.png',
+                                            cacheWidth: 80,
+                                            cacheHeight: 80,
+                                            filterQuality: FilterQuality.medium,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          '5.0',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize:
+                                                screenWidth < 1200 ? 36 : 48,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(width: 50),
+                                Container(
+                                  width: 1,
+                                  height: 32,
+                                  color: const Color(0xffD9D9D9),
+                                ),
+                                const SizedBox(width: 50),
+                                Column(
+                                  children: [
+                                    const Text(
+                                      '추천 지수',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: Image.asset(
+                                            'assets/images/i10.png',
+                                            cacheWidth: 80,
+                                            cacheHeight: 80,
+                                            filterQuality: FilterQuality.medium,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          '100%',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize:
+                                                screenWidth < 1200 ? 36 : 48,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                      SizedBox(
+                          height:
+                              isMobile ? 20 : (screenWidth < 1200 ? 30 : 40)),
+                      Container(
+                        height:
+                            isMobile ? 160 : (screenWidth < 1200 ? 200 : 240),
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              ...reviews
+                                  .map((review) => _buildReviewCard(
+                                      review, isMobile ? 160 : 220))
+                                  .toList(),
+                              ...reviews
+                                  .take(3)
+                                  .map((review) => _buildReviewCard(
+                                      review, isMobile ? 160 : 220))
+                                  .toList(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Container(
+                        height:
+                            isMobile ? 160 : (screenWidth < 1200 ? 200 : 240),
+                        child: SingleChildScrollView(
+                          controller: _scrollController2,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              ...reviews
+                                  .take(3)
+                                  .map((review) => _buildReviewCard(
+                                      review, isMobile ? 160 : 220))
+                                  .toList(),
+                              ...reviews
+                                  .map((review) => _buildReviewCard(
+                                      review, isMobile ? 160 : 200))
+                                  .toList(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -386,7 +343,12 @@ class _Desktop6State extends State<Desktop6> {
             Container(
               width: 32,
               height: 32,
-              child: Image.asset(imagePath),
+              child: Image.asset(
+                imagePath,
+                cacheWidth: 64,
+                cacheHeight: 64,
+                filterQuality: FilterQuality.medium,
+              ),
             ),
             SizedBox(width: 8),
             Text(

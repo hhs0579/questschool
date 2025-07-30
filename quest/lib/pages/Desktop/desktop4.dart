@@ -60,8 +60,7 @@ class _Desktop4State extends State<Desktop4>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return RepaintBoundary(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: const Color(0xffFFFFFF),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -88,46 +87,44 @@ class _Desktop4State extends State<Desktop4>
                     SizedBox(
                       height: 12,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '이제 ',
-                          style: TextStyle(
+                    RichText(
+                      textAlign: isMobile ? TextAlign.center : TextAlign.center,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '이제 ',
+                            style: TextStyle(
                               fontSize: isMobile ? 28 : 48,
                               color: AppColor.primary,
-                              fontWeight: FontWeight.w500),
-                          textAlign:
-                              isMobile ? TextAlign.center : TextAlign.left,
-                        ),
-                        Text(
-                          '퀘스트스쿨',
-                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '퀘스트스쿨',
+                            style: TextStyle(
                               fontSize: isMobile ? 28 : 48,
                               color: AppColor.font1,
-                              fontWeight: FontWeight.w500),
-                          textAlign:
-                              isMobile ? TextAlign.center : TextAlign.left,
-                        ),
-                        Text(
-                          '이 ',
-                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '이 ',
+                            style: TextStyle(
                               fontSize: isMobile ? 28 : 48,
                               color: AppColor.primary,
-                              fontWeight: FontWeight.w500),
-                          textAlign:
-                              isMobile ? TextAlign.center : TextAlign.left,
-                        ),
-                        Text(
-                          '도와드릴게요! ',
-                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '도와드릴게요!',
+                            style: TextStyle(
                               fontSize: isMobile ? 28 : 48,
                               color: AppColor.primary,
-                              fontWeight: FontWeight.w500),
-                          textAlign:
-                              isMobile ? TextAlign.center : TextAlign.left,
-                        ),
-                      ],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: isMobile ? 32 : 55,
@@ -217,7 +214,7 @@ class _Desktop4State extends State<Desktop4>
               ));
         },
       ),
-    ));
+    );
   }
 
   Widget _buildMobileCard({
@@ -295,7 +292,12 @@ class _Desktop4State extends State<Desktop4>
             child: Container(
               width: 80,
               height: 80,
-              child: Image.asset(image),
+              child: Image.asset(
+                image,
+                cacheWidth: 160,
+                cacheHeight: 160,
+                filterQuality: FilterQuality.medium,
+              ),
             ),
           ),
         ],
@@ -389,7 +391,12 @@ class _Desktop4State extends State<Desktop4>
             child: Container(
               width: 120,
               height: 120,
-              child: Image.asset(image),
+              child: Image.asset(
+                image,
+                cacheWidth: 240,
+                cacheHeight: 240,
+                filterQuality: FilterQuality.medium,
+              ),
             ),
           ),
         ],

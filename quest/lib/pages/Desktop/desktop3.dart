@@ -155,7 +155,7 @@ class Desktop3 extends StatelessWidget {
                                 '어려움을 한 번이라도 겪어보셨다면,',
                                 style: TextStyle(
                                     color: AppColor.font5,
-                                    fontSize: 16,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.w500),
                               ),
                               Row(
@@ -165,7 +165,7 @@ class Desktop3 extends StatelessWidget {
                                     style: TextStyle(
                                         color: AppColor.font1,
                                         fontSize: 48,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     '이',
