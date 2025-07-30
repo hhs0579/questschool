@@ -64,6 +64,12 @@ class _Desktop1State extends State<Desktop1> {
                           'assets/images/desk1.png', // SVG 파일 경로
                           fit: BoxFit.contain,
                           alignment: Alignment.center,
+                          width: isMobile
+                              ? constraints.maxWidth * 0.8
+                              : constraints.maxWidth * 0.6,
+                          height: isMobile
+                              ? constraints.maxHeight * 0.6
+                              : constraints.maxHeight * 0.7,
                         ),
                       ),
                     ),
@@ -115,15 +121,9 @@ class _Desktop1State extends State<Desktop1> {
                             height: isMobile ? 15 : 20,
                           ),
                           Text(
-                            '퀘스트스쿨은 PC(교사용)와 모바일(학생용)을 통해',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey[700],
-                                fontSize: isMobile ? 14 : 16),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            '쉽고 간편하게 진로진학 상담 스케줄링이 가능합니다!',
+                            isMobile
+                                ? '퀘스트스쿨은 PC(교사용)와 모바일(학생용)을 통해\n쉽고 간편하게 진로진학 상담 스케줄링이 가능합니다!'
+                                : '퀘스트스쿨은 PC(교사용)와 모바일(학생용)을 통해 쉽고 간편하게 진로진학 상담 스케줄링이 가능합니다!',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey[700],
@@ -131,11 +131,11 @@ class _Desktop1State extends State<Desktop1> {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
-                            height: isMobile ? 30 : 40,
+                            height: isMobile ? 20 : 30,
                           ),
                           InkWell(
-                            onTap: () =>
-                                _launchURL('https://aboutquestschool.kr/'),
+                            onTap: () => _launchURL(
+                                'https://teacher.questschool.kr/login'),
                             child: Container(
                               height: isMobile ? 48 : 56,
                               width: isMobile ? 180 : 180,

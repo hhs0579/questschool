@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quest/components/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:html' as html;
-import 'dart:ui' as ui;
+import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class Desktop5 extends StatefulWidget {
   const Desktop5({super.key});
@@ -12,95 +12,60 @@ class Desktop5 extends StatefulWidget {
 }
 
 class _Desktop5State extends State<Desktop5> {
-  bool _showPlayer1 = false;
-  bool _showPlayer2 = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _registerIframes();
-  }
-
-  void _registerIframes() {
-    // iframe 요소들을 Flutter 웹에 등록
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(
-      'youtube-player-1',
-      (int viewId) => _createIframe('LUWbfI17_UU'),
-    );
-
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(
-      'youtube-player-2',
-      (int viewId) => _createIframe('LUWbfI17_UU'),
-    );
-  }
-
-  html.IFrameElement _createIframe(String videoId) {
-    final iframe = html.IFrameElement()
-      ..src =
-          'https://www.youtube.com/embed/$videoId?autoplay=1&controls=1&showinfo=0&rel=0&modestbranding=1'
-      ..style.border = 'none'
-      ..style.width = '100%'
-      ..style.height = '100%'
-      ..style.borderRadius = '12px'
-      ..allowFullscreen = true
-      ..allow = 'autoplay; encrypted-media';
-    return iframe;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      child: Scaffold(
-        backgroundColor: const Color(0xffFFF8F2),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            final screenWidth = constraints.maxWidth;
-            final screenHeight = constraints.maxHeight;
+    return Scaffold(
+      backgroundColor: const Color(0xffFFF8F2),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final screenWidth = constraints.maxWidth;
+          final screenHeight = constraints.maxHeight;
 
-            return Container(
-              width: screenWidth,
-              height: screenHeight,
-              padding: EdgeInsets.symmetric(
-                horizontal: screenWidth > 1400 ? 60 : 20,
-                vertical: screenWidth < 768 ? 20 : 40,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: screenWidth < 768 ? 20 : 80),
-                  _buildTitleSection(screenWidth),
-                  SizedBox(height: 60),
-                  _buildContentCard(
-                      '01',
-                      '상담 요청 관리하기',
-                      '상담,상담확인서 요청 확인 및 수락,거절,취소 등\n전반적인 상담 관리가 가능합니다.',
-                      screenWidth,
-                      1),
-                  SizedBox(height: 24),
-                  _buildContentCard('02', '상담 일정 관리',
-                      '효율적인 상담 스케줄링과\n체계적인 상담 기록 관리가 가능합니다.', screenWidth, 2),
-                  SizedBox(height: 24),
-                  _buildContentCard(
-                      '03',
-                      '학생 진로심리검사 결과 확인',
-                      '상담전,학생의 실시간 진로심리검사 내용을 확인하여\n학생별 특성을 고려하여 상담 준비가 가능합니다.',
-                      screenWidth,
-                      3),
-                  SizedBox(height: 24),
-                  _buildContentCard(
-                      '04',
-                      '상담 후 내용 정리',
-                      '상담 후,개별 상담의 일지를 작성하고 엑셀로\n다운로드하여 유관 업무에 활용 가능합니다.',
-                      screenWidth,
-                      4),
-                  SizedBox(height: 24),
-                ],
-              ),
-            );
-          },
-        ),
+          return Container(
+            width: screenWidth,
+            height: screenHeight,
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth > 1400 ? 60 : 20,
+              vertical: screenWidth < 768 ? 20 : 40,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: screenWidth < 768 ? 20 : 80),
+                _buildTitleSection(screenWidth),
+                SizedBox(height: 60),
+                _buildContentCard(
+                    '01',
+                    '상담 요청 관리하기',
+                    '상담·상담확인서 요청 확인 및 수락,거절,취소 등\n전반적인 상담 관리가 가능합니다.',
+                    screenWidth,
+                    'assets/video/01.mp4'),
+                SizedBox(height: 24),
+                _buildContentCard(
+                    '02',
+                    '상담 일정 관리',
+                    '효율적인 상담 스케줄링과\n체계적인 상담 기록 관리가 가능합니다.',
+                    screenWidth,
+                    'assets/video/02.mp4'),
+                SizedBox(height: 24),
+                _buildContentCard(
+                    '03',
+                    '학생 진로심리검사 결과 확인',
+                    '상담 전, 학생의 실시간 진로심리검사 내용을 확인하여\n학생별 특성을 고려한 상담 준비가 가능합니다.',
+                    screenWidth,
+                    'assets/video/03.mp4'),
+                SizedBox(height: 24),
+                _buildContentCard(
+                    '04',
+                    '상담 후 내용 정리',
+                    '상담 후, 개별 상담의 일지를 작성하고 엑셀로\n다운로드하여 유관 업무에 활용 가능합니다.',
+                    screenWidth,
+                    'assets/video/04.mp4'),
+                SizedBox(height: 24),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -148,7 +113,7 @@ class _Desktop5State extends State<Desktop5> {
   }
 
   Widget _buildContentCard(String number, String title, String description,
-      double screenWidth, int playerNumber) {
+      double screenWidth, String videoPath) {
     final isMobile = screenWidth < 768;
     final cardWidth = screenWidth > 1400 ? 1200.0 : screenWidth * 0.9;
 
@@ -159,26 +124,26 @@ class _Desktop5State extends State<Desktop5> {
       padding: EdgeInsets.all(isMobile ? 24 : 56),
       child: isMobile
           ? _buildMobileLayout(
-              number, title, description, screenWidth, playerNumber)
+              number, title, description, screenWidth, videoPath)
           : _buildDesktopLayout(
-              number, title, description, screenWidth, playerNumber),
+              number, title, description, screenWidth, videoPath),
     );
   }
 
   Widget _buildMobileLayout(String number, String title, String description,
-      double screenWidth, int playerNumber) {
+      double screenWidth, String videoPath) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildTextContent(number, title, description, screenWidth),
         SizedBox(height: 24),
-        _buildVideoSection(screenWidth, playerNumber),
+        _buildVideoSection(screenWidth, videoPath),
       ],
     );
   }
 
   Widget _buildDesktopLayout(String number, String title, String description,
-      double screenWidth, int playerNumber) {
+      double screenWidth, String videoPath) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -186,7 +151,7 @@ class _Desktop5State extends State<Desktop5> {
             width: screenWidth > 1200 ? 400 : 300,
             child: _buildTextContent(number, title, description, screenWidth)),
         SizedBox(width: 60),
-        Flexible(child: _buildVideoSection(screenWidth, playerNumber)),
+        Flexible(child: _buildVideoSection(screenWidth, videoPath)),
       ],
     );
   }
@@ -224,7 +189,7 @@ class _Desktop5State extends State<Desktop5> {
     );
   }
 
-  Widget _buildVideoSection(double screenWidth, int playerNumber) {
+  Widget _buildVideoSection(double screenWidth, String videoPath) {
     final videoWidth = screenWidth > 1200
         ? 600.0
         : screenWidth > 800
@@ -246,70 +211,224 @@ class _Desktop5State extends State<Desktop5> {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
-        child: _buildVideoContent(playerNumber),
+        child: _buildVideoOrImagePlaceholder(videoPath),
       ),
     );
   }
 
-  Widget _buildVideoContent(int playerNumber) {
-    bool showPlayer = playerNumber == 1 ? _showPlayer1 : _showPlayer2;
+  Widget _buildVideoOrImagePlaceholder(String videoPath) {
+    // 비디오 파일이 존재하는지 확인하는 로직
+    // 실제로는 assets에 파일이 있는지 확인해야 함
+    final videoNumber = videoPath.split('/').last.split('.').first;
 
-    if (showPlayer) {
-      // 웹에서만 iframe 사용
-      return HtmlElementView(
-        viewType: 'youtube-player-$playerNumber',
-      );
-    }
-    return _buildPlayButton(playerNumber);
+    // 비디오 파일이 준비되면 아래 주석을 해제하고 위의 AutoPlayVideoWidget을 사용하세요
+    return AutoPlayVideoWidget(url: videoPath);
+
+    // return Container(
+    //   color: Colors.grey[200],
+    //   child: Center(
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Icon(
+    //           Icons.play_circle_outline,
+    //           size: 80,
+    //           color: AppColor.primary,
+    //         ),
+    //         SizedBox(height: 16),
+    //         Text(
+    //           '비디오 $videoNumber',
+    //           style: TextStyle(
+    //             fontSize: 18,
+    //             fontWeight: FontWeight.bold,
+    //             color: AppColor.font1,
+    //           ),
+    //         ),
+    //         SizedBox(height: 8),
+    //         Text(
+    //           '클릭하여 재생',
+    //           style: TextStyle(
+    //             fontSize: 14,
+    //             color: Colors.grey[600],
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+  }
+}
+
+// AutoPlayVideoWidget 클래스 정의
+class AutoPlayVideoWidget extends StatefulWidget {
+  final String url; // mp4 주소
+
+  const AutoPlayVideoWidget({required this.url, super.key});
+
+  @override
+  State<AutoPlayVideoWidget> createState() => _AutoPlayVideoWidgetState();
+}
+
+class _AutoPlayVideoWidgetState extends State<AutoPlayVideoWidget> {
+  VideoPlayerController? _controller;
+  bool _isInitialized = false;
+  bool _hasError = false;
+  bool _isVisible = false;
+  bool _isDisposed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeVideo();
   }
 
-  Widget _buildPlayButton(int playerNumber) {
-    const videoId = 'LUWbfI17_UU';
-    const thumbnailUrl =
-        'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
+  Future<void> _initializeVideo() async {
+    if (_isDisposed) return;
 
-    return GestureDetector(
-      onTap: () {
+    try {
+      _controller = VideoPlayerController.asset(widget.url);
+
+      await _controller!.initialize();
+
+      if (mounted && !_isDisposed && _controller != null) {
+        await _controller!.setLooping(true);
+        await _controller!.setVolume(0.0);
+
         setState(() {
-          if (playerNumber == 1) {
-            _showPlayer1 = true;
-          } else {
-            _showPlayer2 = true;
-          }
+          _isInitialized = true;
         });
-      },
-      child: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.network(thumbnailUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Container(
-                    color: Colors.grey[300],
-                    child: Icon(Icons.video_library,
-                        size: 60, color: Colors.grey[600]))),
-            Container(color: Colors.black.withOpacity(0.3)),
-            Center(
-              child: Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.4),
-                        blurRadius: 15,
-                        offset: const Offset(0, 5))
+
+        // 초기화 후 화면에 보이면 자동 재생
+        if (_isVisible) {
+          _playVideo();
+        }
+      }
+    } catch (e) {
+      print('Video initialization error for ${widget.url}: $e');
+      if (mounted && !_isDisposed) {
+        setState(() {
+          _hasError = true;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  void _playVideo() {
+    if (_isDisposed) return;
+
+    try {
+      final controller = _controller;
+      if (controller != null &&
+          _isInitialized &&
+          !controller.value.isPlaying &&
+          mounted) {
+        controller.play();
+        print('Playing video: ${widget.url}');
+      }
+    } catch (e) {
+      print('Error playing video: $e');
+    }
+  }
+
+  void _pauseVideo() {
+    if (_isDisposed) return;
+
+    try {
+      final controller = _controller;
+      if (controller != null &&
+          _isInitialized &&
+          controller.value.isPlaying &&
+          mounted) {
+        controller.pause();
+        print('Pausing video: ${widget.url}');
+      }
+    } catch (e) {
+      print('Error pausing video: $e');
+    }
+  }
+
+  void _onVisibilityChanged(VisibilityInfo visibilityInfo) {
+    if (_isDisposed || !mounted) return;
+
+    final wasVisible = _isVisible;
+    _isVisible = visibilityInfo.visibleFraction > 0.3; // 30% 이상 보이면 재생
+
+    if (_isVisible && !wasVisible && _isInitialized) {
+      // 화면에 나타남 - 재생
+      _playVideo();
+    } else if (!_isVisible && wasVisible && _isInitialized) {
+      // 화면에서 사라짐 - 일시정지
+      _pauseVideo();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_hasError) {
+      return Container(
+        color: Colors.grey[300],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline, size: 60, color: Colors.grey[600]),
+              SizedBox(height: 16),
+              Text(
+                '비디오를 불러올 수 없습니다',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                widget.url,
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return VisibilityDetector(
+      key: Key(widget.url),
+      onVisibilityChanged: _onVisibilityChanged,
+      child: _isInitialized && _controller != null && !_isDisposed
+          ? AspectRatio(
+              aspectRatio: _controller!.value.aspectRatio,
+              child: VideoPlayer(_controller!),
+            )
+          : Container(
+              color: Colors.black12,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 16),
+                    Text(
+                      '비디오 로딩 중...',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
-                child: Icon(Icons.play_arrow, size: 40, color: Colors.white),
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

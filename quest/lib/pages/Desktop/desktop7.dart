@@ -33,7 +33,7 @@ class _Desktop7State extends State<Desktop7> {
         children: [
           _buildFirstFeatureRow(
             'assets/images/7-4.png',
-            'AI 챗봇과의 대화 혹은 학생이\n 직접 작성한 상세 내용을 통해\n학생의 상담 니즈 확인',
+            'AI 챗봇과의 대화 혹은 학생이\n직접 작성한 상세 내용을 통해\n학생의 상담 니즈 확인',
             '학생이 남긴 대화 내역 혹은 직접 작성한 상세 내용을 통해,\n상담 전 학생이 원하는 상담 주제를 확인할 수 있어요!',
           ),
           SizedBox(height: isMobile ? 20 : 30),
@@ -48,7 +48,7 @@ class _Desktop7State extends State<Desktop7> {
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
             'assets/images/7-6.png',
-            '상담 후 상담 내용 기록과\n해당 내용 요약본을 엑셀로 다운로드',
+            '상담 후 상담 내용 기록과\n누적된 일지를 엑셀로 다운로드',
             '상담 내용을 기록하고, 주요 키워드를 중심으로 한 줄',
             '요약하여 상담 기록을 더욱 쉽게 찾아보세요!',
             true,
@@ -71,13 +71,13 @@ class _Desktop7State extends State<Desktop7> {
         children: [
           _buildFirstFeatureRow(
             'assets/images/7-1.png',
-            'AI 챗봇과의 대화를 통한 상담 내용 구체화',
-            '퀘스트스쿨에 상담 주제 설정을 위한 \'대화하기\' 기능이 추가되었어요! AI 챗봇과의 대화를 통해 자연스럽게현재 학생에게 필요한 상담 주제를 찾을 수 있어요.',
+            'AI 챗봇과의 대화를 통한\n상담 내용 구체화',
+            '퀘스트스쿨에 상담 주제 설정을 위한 \'대화하기\' 기능이 추가되었어요! AI 챗봇과의 대화를 통해 자연스럽게\n현재 학생에게 필요한 상담 주제를 찾을 수 있어요.',
           ),
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
             'assets/images/7-2.png',
-            '직접 상담 주제 선택하고 상담 내용 작성하기 ',
+            '직접 상담 주제 선택하고\n상담 내용 작성하기 ',
             '물론, 사전 대화 없이 상담 주제를 학생이 직접 선택한 후',
             '자유롭게 상세 내용을 작성할수도 있어요.',
             true,
@@ -103,7 +103,6 @@ class _Desktop7State extends State<Desktop7> {
 
     return Container(
       width: isMobile ? screenWidth * 0.9 : 1200,
-      height: isMobile ? 160 : 200,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(isMobile ? 8 : 10),
@@ -200,6 +199,7 @@ class _Desktop7State extends State<Desktop7> {
               ],
             ),
           ),
+          SizedBox(height: isMobile ? 15 : 20),
         ],
       ),
     );
@@ -211,7 +211,6 @@ class _Desktop7State extends State<Desktop7> {
 
     return Container(
       width: isMobile ? screenWidth * 0.9 : 1200,
-      height: isMobile ? 160 : 200,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(isMobile ? 8 : 10),
@@ -308,6 +307,7 @@ class _Desktop7State extends State<Desktop7> {
               ],
             ),
           ),
+          SizedBox(height: isMobile ? 15 : 20),
         ],
       ),
     );
@@ -338,13 +338,17 @@ class _Desktop7State extends State<Desktop7> {
                         horizontal: isMobile ? 12 : 16,
                         vertical: isMobile ? 6 : 8),
                     decoration: BoxDecoration(
-                      color: AppColor.font1,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(isMobile ? 15 : 20),
+                      border: Border.all(
+                        color: AppColor.font1,
+                        width: 1,
+                      ),
                     ),
                     child: Text(
                       orderText,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.font1,
                         fontSize: isMobile ? 12 : 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -402,14 +406,18 @@ class _Desktop7State extends State<Desktop7> {
                               horizontal: isMobile ? 12 : 16,
                               vertical: isMobile ? 6 : 8),
                           decoration: BoxDecoration(
-                            color: AppColor.font1,
+                            color: Colors.white,
                             borderRadius:
                                 BorderRadius.circular(isMobile ? 15 : 20),
+                            border: Border.all(
+                              color: AppColor.font1,
+                              width: 1,
+                            ),
                           ),
                           child: Text(
                             orderText,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColor.font1,
                               fontSize: isMobile ? 12 : 14,
                               fontWeight: FontWeight.w500,
                             ),
@@ -536,14 +544,18 @@ class _Desktop7State extends State<Desktop7> {
                             horizontal: isMobile ? 12 : 16,
                             vertical: isMobile ? 6 : 8),
                         decoration: BoxDecoration(
-                          color: AppColor.font1,
+                          color: Colors.white,
                           borderRadius:
                               BorderRadius.circular(isMobile ? 15 : 20),
+                          border: Border.all(
+                            color: AppColor.font1,
+                            width: 1,
+                          ),
                         ),
                         child: Text(
                           '첫번째',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColor.font1,
                             fontSize: isMobile ? 12 : 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -606,7 +618,7 @@ class _Desktop7State extends State<Desktop7> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'AI 챗봇과의 대화를 통한 상담 내용 구체화 누가 활용하면 좋은가요?',
+                    'AI 챗봇과의 대화를 통한 상담 내용 구체화, 누가 활용하면 좋은가요?',
                     style: TextStyle(
                         fontSize: isMobile ? 14 : 20,
                         fontWeight: FontWeight.w500,

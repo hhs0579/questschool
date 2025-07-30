@@ -381,6 +381,9 @@ class _Desktop4State extends State<Desktop4>
                 style: TextStyle(
                   color: AppColor.font5,
                   fontSize: 16,
+                  fontWeight: label == 'SAFE DATA'
+                      ? FontWeight.bold
+                      : FontWeight.normal,
                 ),
               ),
             ],

@@ -77,6 +77,19 @@
     </script>
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
+
+    <!-- Video Player Web Support -->
+    <script>
+      // Video player web support
+      if (typeof window !== "undefined") {
+        window.addEventListener("load", function () {
+          // Video player initialization
+          if (window.flutter_inappwebview) {
+            console.log("Video player web support initialized");
+          }
+        });
+      }
+    </script>
     <script>
       function initDaumPostcode(callback) {
         new daum.Postcode({

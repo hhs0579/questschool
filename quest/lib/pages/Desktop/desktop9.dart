@@ -403,6 +403,20 @@ class _Desktop9State extends State<Desktop9> {
     });
   }
 
+  // URL 실행 함수
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    try {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+        webOnlyWindowName: '_blank',
+      );
+    } catch (e) {
+      print('URL 실행 중 오류 발생: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -1043,9 +1057,10 @@ class _Desktop9State extends State<Desktop9> {
                 // 하단 푸터
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: isMobile ? 400 : 330,
+                  height: isMobile ? 500 : 430,
                   color: Colors.grey[100],
-                  child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 0, bottom: 50),
                     child: isMobile
                         ? Padding(
                             padding: const EdgeInsets.only(left: 20),
@@ -1082,30 +1097,17 @@ class _Desktop9State extends State<Desktop9> {
                                 SizedBox(height: 30),
                                 Row(
                                   children: [
-                                    Text(
-                                      '회사 소개',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[700],
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    SizedBox(width: 20),
-                                    Text(
-                                      '듀토리얼 확인하기',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[700],
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    SizedBox(width: 20),
-                                    Text(
-                                      '문의하기',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[700],
-                                        fontWeight: FontWeight.w700,
+                                    GestureDetector(
+                                      onTap: () =>
+                                          _launchURL('https://sjgod.kr/'),
+                                      child: Text(
+                                        '회사 소개',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
+                                          decoration: TextDecoration.underline,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -1140,106 +1142,97 @@ class _Desktop9State extends State<Desktop9> {
                               ],
                             ),
                           )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 215,
-                                    height: 30,
-                                    child: Image.asset(
-                                      'assets/images/blogo.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                  SizedBox(height: 24),
-                                  Text(
-                                    '퀘스트스쿨은 진로 콘텐츠 전문 기업 사자가온다(주)에서\n개발한 교내 진로진학 상담 솔루션 서비스입니다.',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  SizedBox(height: 40),
-                                  Text(
-                                    'Copyright ⓒ 2023 사자가온다㈜ All rights reserved.',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        '회사 소개',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                        : Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 40),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 215,
+                                      height: 30,
+                                      child: Image.asset(
+                                        'assets/images/blogo.png',
+                                        fit: BoxFit.contain,
                                       ),
-                                      SizedBox(width: 32),
-                                      Text(
-                                        '듀토리얼 확인하기',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                    ),
+                                    SizedBox(height: 24),
+                                    Text(
+                                      '퀘스트스쿨은 진로 콘텐츠 전문 기업 사자가온다(주)에서\n개발한 교내 진로진학 상담 솔루션 서비스입니다.',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey[700],
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                      SizedBox(width: 32),
-                                      Text(
-                                        '문의하기',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                    ),
+                                    SizedBox(height: 40),
+                                    Text(
+                                      'Copyright ⓒ 2023 사자가온다㈜ All rights reserved.',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.grey[700],
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 72),
-                                  Text(
-                                    'AM 10:00 - PM 18:00',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.w500,
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () =>
+                                              _launchURL('https://sjgod.kr/'),
+                                          child: Text(
+                                            '회사 소개',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey[700],
+                                              fontWeight: FontWeight.w700,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    '점심 PM 12:00 - PM 13:00',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.w500,
+                                    SizedBox(height: 72),
+                                    Text(
+                                      'AM 10:00 - PM 18:00',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey[700],
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    '공휴일,주말 휴무',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.w500,
+                                    SizedBox(height: 8),
+                                    Text(
+                                      '점심 PM 12:00 - PM 13:00',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey[700],
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
+                                    SizedBox(height: 8),
+                                    Text(
+                                      '공휴일,주말 휴무',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey[700],
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                   ),
                 ),

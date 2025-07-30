@@ -120,7 +120,7 @@ class Desktop3 extends StatelessWidget {
                           ),
 
                           Text(
-                            '선생님 이시군요!',
+                            '선생님이시군요!',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 32,
@@ -129,7 +129,7 @@ class Desktop3 extends StatelessWidget {
                           SizedBox(height: 40),
                           // 모바일용 박스들 (세로 배치)
                           _buildMobileCard('assets/images/i1.png',
-                              '메모지,다이어리,컴퓨터 폴더... 여기저기', '흩어져 있는 상담 기록을 찾을 때'),
+                              '메모지, 다이어리,컴퓨터 폴더... 여기저기', '흩어져 있는 상담 기록을 찾을 때'),
                           SizedBox(height: 20),
                           _buildMobileCard('assets/images/i2.png',
                               '기록을 모아 진로 상담', '결과 보고서를 작성할 때'),
@@ -138,10 +138,10 @@ class Desktop3 extends StatelessWidget {
                               '갑작스러운 스케줄로 다급하게', '일정 조율이 필요할 때'),
                           SizedBox(height: 20),
                           _buildMobileCard('assets/images/i4.png',
-                              '상담신청서,상담확인서 등의', '관련 서류를 관리할 때'),
+                              '상담신청서, 상담확인서 등의', '관련 서류를 관리할 때'),
                           SizedBox(height: 20),
                           _buildMobileCard('assets/images/i5.png',
-                              '동시에 많은 학생과의', '상담일정을 계획해야 할때'),
+                              '동시에 많은 학생과의', '상담일정을 계획해야 할 때'),
                         ],
                       )
                     : Row(
@@ -227,7 +227,7 @@ class Desktop3 extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '메모지,다이어리,컴퓨터 폴더... 여기저기',
+                                              '메모지, 다이어리,컴퓨터 폴더... 여기저기',
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   color: Colors.black,
@@ -375,7 +375,7 @@ class Desktop3 extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '상담신청서,상담확인서 등의',
+                                              '상담신청서, 상담확인서 등의',
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   color: Colors.black,
@@ -427,14 +427,14 @@ class Desktop3 extends StatelessWidget {
                                           style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.black,
-                                              fontWeight: FontWeight.w600),
+                                              fontWeight: FontWeight.w500),
                                         ),
                                         Text(
-                                          '상담일정을 계획해야 할때',
+                                          '상담일정을 계획해야 할 때',
                                           style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.black,
-                                              fontWeight: FontWeight.w600),
+                                              fontWeight: FontWeight.w500),
                                         )
                                       ],
                                     ),

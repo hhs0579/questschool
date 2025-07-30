@@ -175,7 +175,7 @@ class _Desktop6State extends State<Desktop6> {
                                 Container(
                                   width: 1,
                                   height: 32,
-                                  color: const Color(0xffD9D9D9),
+                                  color: Color(0xffD96500),
                                 ),
                                 const SizedBox(width: 50),
                                 Column(

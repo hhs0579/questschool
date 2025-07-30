@@ -374,7 +374,7 @@ class _Desktop8State extends State<Desktop8> {
                     ),
                     SizedBox(height: 24),
                     Text(
-                      '학교 코드란 각 학교의 고유한 식별 코드입니다.\n학교 코드가 없거나 다를 경우 회원가입이 불가하거나,\n신청한 학교 멤버 확인불가합니다.',
+                      '학교 코드란 각 학교의 고유한 식별 코드입니다.\n학교 코드가 없거나 다를 경우, 회원가입이 불가하거나,\n신청한 학교 멤버를 확인할 수 없습니다.',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[700],
@@ -494,7 +494,7 @@ class _Desktop8State extends State<Desktop8> {
                 Container(
                   width: 640,
                   height: 640,
-                  child: Image.asset('assets/images/8-2.png'),
+                  child: Image.asset('assets/images/8-1.png'),
                 ),
               ],
             ),
@@ -521,7 +521,7 @@ class _Desktop8State extends State<Desktop8> {
                 ),
                 SizedBox(height: isMobile ? 16 : 24),
                 Text(
-                  '학교 코드 조회 접수 진행 후,\n학교 코드 및 사용 안내 메일 발송',
+                  '학교 코드 조회 접수 후, 안내 메일 속\n학교코드 확인하고 회원가입 진행하기!',
                   style: TextStyle(
                       fontSize: isMobile ? 24 : 32,
                       fontWeight: FontWeight.w500,
@@ -530,7 +530,7 @@ class _Desktop8State extends State<Desktop8> {
                 ),
                 SizedBox(height: isMobile ? 16 : 24),
                 Text(
-                  '접수가 진행되면 학교 코드와 안내 메일이 00분 내로 발송됩니다.\n메일을 확인해 주세요.',
+                  '접수가 완료되면 학교 코드가 기재된 안내 메일이 발송됩니다.\n학교코드를 확인하고 퀘스트스쿨에서 가입을 진행해주세요.',
                   style: TextStyle(
                       fontSize: isMobile ? 14 : 16,
                       color: Colors.grey[700],
@@ -787,7 +787,7 @@ class _Desktop8State extends State<Desktop8> {
                 ),
                 SizedBox(height: isMobile ? 16 : 24),
                 Text(
-                  '회원 가입 후 안내 받은 학교 코드를\n입력하면 카카오 알림톡 발송',
+                  '학교 코드 입력하고 가입 절차를 마치면\n곧바로 카카오 알림톡 발송',
                   style: TextStyle(
                       fontSize: isMobile ? 24 : 32,
                       fontWeight: FontWeight.w500,
@@ -796,7 +796,7 @@ class _Desktop8State extends State<Desktop8> {
                 ),
                 SizedBox(height: isMobile ? 16 : 24),
                 Text(
-                  '퀘스트스쿨 회원가입 후에 안내 받은 학교 코드를 입력하면\n카카오 알림톡으로 가입신청이 완료 됐다는 연락이 갈거에요.',
+                  '안내 받은 학교 코드를 입력하고 회원 가입 절차를 마치면\n카카오 알림톡으로 가입 신청이 완료되었다는 연락이 갈거에요.',
                   style: TextStyle(
                       fontSize: isMobile ? 14 : 16,
                       color: Colors.grey[700],

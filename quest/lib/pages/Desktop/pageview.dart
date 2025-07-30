@@ -120,8 +120,18 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                             ),
                             SizedBox(height: 12),
                             InkWell(
-                              onTap: () =>
-                                  _launchURL('https://questschoolmall.kr/code'),
+                              onTap: () {
+                                // 페이지 9번(desktop9)으로 스크롤 이동
+                                final targetIndex =
+                                    8; // 0-based index이므로 8번이 9번째 페이지
+                                final targetOffset =
+                                    _calculateOffsetForPage(targetIndex);
+                                _scrollController.animateTo(
+                                  targetOffset,
+                                  duration: Duration(milliseconds: 800),
+                                  curve: Curves.easeInOut,
+                                );
+                              },
                               child: Container(
                                 width: double.infinity,
                                 height: 45,
@@ -158,8 +168,18 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                             ),
                             SizedBox(width: 20),
                             InkWell(
-                              onTap: () =>
-                                  _launchURL('https://questschoolmall.kr/code'),
+                              onTap: () {
+                                // 페이지 9번(desktop9)으로 스크롤 이동
+                                final targetIndex =
+                                    8; // 0-based index이므로 8번이 9번째 페이지
+                                final targetOffset =
+                                    _calculateOffsetForPage(targetIndex);
+                                _scrollController.animateTo(
+                                  targetOffset,
+                                  duration: Duration(milliseconds: 800),
+                                  curve: Curves.easeInOut,
+                                );
+                              },
                               child: Container(
                                 width: 254,
                                 height: 52,
@@ -214,6 +234,40 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       default:
         return Desktop1();
     }
+  }
+
+  // 특정 페이지로 스크롤하기 위한 오프셋 계산
+  double _calculateOffsetForPage(int targetIndex) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
+    double offset = 0;
+
+    for (int i = 0; i < targetIndex; i++) {
+      double pageHeight = isMobile ? MediaQuery.of(context).size.height : 1080;
+
+      if (i == 1) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 0.5 : 1080;
+      } else if (i == 2) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.8 : 1080;
+      } else if (i == 3) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.2 : 1080;
+      } else if (i == 4) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.1 : 2400;
+      } else if (i == 5) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1300;
+      } else if (i == 6) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.2 : 2600;
+      } else if (i == 7) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
+      } else if (i == 8) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3 : 2400;
+      }
+
+      offset += pageHeight;
+    }
+
+    return offset;
   }
 
   Widget _buildOptimizedPageWrapper(Widget page, int index) {
