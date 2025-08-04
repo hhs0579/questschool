@@ -45,6 +45,49 @@ class _Desktop6State extends State<Desktop6> {
   @override
   void initState() {
     super.initState();
+    _startAutoScroll();
+  }
+
+  void _startAutoScroll() {
+    Future.delayed(Duration(seconds: 2), () {
+      _startAutoScroll1();
+      _startAutoScroll2();
+    });
+  }
+
+  void _startAutoScroll1() {
+    if (!mounted) return;
+
+    _scrollController
+        .animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(seconds: 25),
+      curve: Curves.linear,
+    )
+        .then((_) {
+      if (mounted) {
+        _scrollController.jumpTo(0);
+        _startAutoScroll1();
+      }
+    });
+  }
+
+  void _startAutoScroll2() {
+    if (!mounted) return;
+
+    // 아래쪽 행은 반대 방향으로 스크롤 (왼쪽으로 이동)
+    _scrollController2
+        .animateTo(
+      0,
+      duration: Duration(seconds: 25),
+      curve: Curves.linear,
+    )
+        .then((_) {
+      if (mounted) {
+        _scrollController2.jumpTo(_scrollController2.position.maxScrollExtent);
+        _startAutoScroll2();
+      }
+    });
   }
 
   Future<void> _launchURL(String url) async {
@@ -120,7 +163,7 @@ class _Desktop6State extends State<Desktop6> {
                         ),
                         textAlign: isMobile ? TextAlign.center : TextAlign.left,
                       ),
-                      SizedBox(height: isMobile ? 12 : 16),
+                      SizedBox(height: isMobile ? 40 : 40),
                       isMobile
                           ? Column(
                               children: [
@@ -219,14 +262,14 @@ class _Desktop6State extends State<Desktop6> {
                             ),
                       SizedBox(
                           height:
-                              isMobile ? 20 : (screenWidth < 1200 ? 30 : 40)),
+                              isMobile ? 40 : (screenWidth < 1200 ? 30 : 40)),
                       Container(
                         height:
                             isMobile ? 160 : (screenWidth < 1200 ? 200 : 240),
                         child: SingleChildScrollView(
                           controller: _scrollController,
                           scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           child: Row(
                             children: [
                               ...reviews
@@ -249,15 +292,15 @@ class _Desktop6State extends State<Desktop6> {
                         child: SingleChildScrollView(
                           controller: _scrollController2,
                           scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           child: Row(
                             children: [
-                              ...reviews
+                              ...reviews.reversed
                                   .take(3)
                                   .map((review) => _buildReviewCard(
                                       review, isMobile ? 160 : 220))
                                   .toList(),
-                              ...reviews
+                              ...reviews.reversed
                                   .map((review) => _buildReviewCard(
                                       review, isMobile ? 160 : 200))
                                   .toList(),

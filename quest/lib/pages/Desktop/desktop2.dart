@@ -116,31 +116,30 @@ class _Desktop2State extends State<Desktop2>
                 child: Container(
                   padding: responsivePadding,
                   child: Column(
-                    mainAxisAlignment: screenWidth > 600
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // 상단 제목 (데스크톱에서만 표시)
-                      if (screenWidth > 600)
-                        Container(
-                          padding: EdgeInsets.only(bottom: 40),
-                          child: Text.rich(
-                            TextSpan(
-                              style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 36,
-                                color: Colors.black,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: '퀘스트스쿨',
-                                  style: TextStyle(color: AppColor.font1),
-                                ),
-                                const TextSpan(text: '의 홍보용 영상'),
-                              ],
+                      // 상단 제목 (모바일과 데스크톱 모두 표시)
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: screenWidth > 600 ? 40 : 20),
+                        child: Text.rich(
+                          TextSpan(
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: screenWidth > 600 ? 36 : 24,
+                              color: Colors.black,
                             ),
+                            children: [
+                              TextSpan(
+                                text: '퀘스트스쿨',
+                                style: TextStyle(color: AppColor.font1),
+                              ),
+                              const TextSpan(text: '의 홍보용 영상'),
+                            ],
                           ),
+                          textAlign: TextAlign.center,
                         ),
+                      ),
 
                       // 비디오 컨테이너
                       Container(

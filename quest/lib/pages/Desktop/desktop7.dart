@@ -35,6 +35,8 @@ class _Desktop7State extends State<Desktop7> {
             'assets/images/7-4.png',
             'AI 챗봇과의 대화 혹은 학생이\n직접 작성한 상세 내용을 통해\n학생의 상담 니즈 확인',
             '학생이 남긴 대화 내역 혹은 직접 작성한 상세 내용을 통해,\n상담 전 학생이 원하는 상담 주제를 확인할 수 있어요!',
+            null,
+            null,
           ),
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
@@ -44,6 +46,7 @@ class _Desktop7State extends State<Desktop7> {
             '상담 전 학생의 특성을 고려하여 상담 준비를 할 수 있어요!',
             true,
             '두번째',
+            null,
           ),
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
@@ -53,6 +56,7 @@ class _Desktop7State extends State<Desktop7> {
             '요약하여 상담 기록을 더욱 쉽게 찾아보세요!',
             true,
             '세번째',
+            null,
           ),
         ],
       ),
@@ -70,9 +74,11 @@ class _Desktop7State extends State<Desktop7> {
       child: Column(
         children: [
           _buildFirstFeatureRow(
-            'assets/images/7-1.png',
+            isMobile ? 'assets/images/7-1-1.png' : 'assets/images/7-1.png',
             'AI 챗봇과의 대화를 통한\n상담 내용 구체화',
             '퀘스트스쿨에 상담 주제 설정을 위한 \'대화하기\' 기능이 추가되었어요! AI 챗봇과의 대화를 통해 자연스럽게\n현재 학생에게 필요한 상담 주제를 찾을 수 있어요.',
+            isMobile ? 'assets/images/7-1-2.png' : null,
+            isMobile ? 700.0 : null,
           ),
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
@@ -82,6 +88,7 @@ class _Desktop7State extends State<Desktop7> {
             '자유롭게 상세 내용을 작성할수도 있어요.',
             true,
             '두번째',
+            isMobile ? 700.0 : null,
           ),
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
@@ -91,6 +98,7 @@ class _Desktop7State extends State<Desktop7> {
             '실시할 수 있어요!\n(마이페이지 메뉴, 선택사항)',
             true,
             '세번째',
+            isMobile ? 700.0 : null,
           ),
         ],
       ),
@@ -314,7 +322,7 @@ class _Desktop7State extends State<Desktop7> {
   }
 
   Widget _buildFeatureRow(String imagePath, String title, String description,
-      String detail, bool showOrder, String orderText) {
+      String detail, bool showOrder, String orderText, double? height) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
 
@@ -384,10 +392,10 @@ class _Desktop7State extends State<Desktop7> {
                 SizedBox(height: isMobile ? 20 : 0),
                 Container(
                   width: isMobile ? screenWidth * 0.8 : 624,
-                  height: isMobile ? 300 : 500,
+                  height: height ?? 500,
                   child: Image.asset(
                     imagePath,
-                    fit: BoxFit.contain,
+                    fit: isMobile ? BoxFit.fitWidth : BoxFit.contain,
                   ),
                 ),
               ],
@@ -456,7 +464,7 @@ class _Desktop7State extends State<Desktop7> {
                 Spacer(),
                 Container(
                   width: 624,
-                  height: 500,
+                  height: height ?? 500,
                   child: Image.asset(
                     imagePath,
                     fit: BoxFit.contain,
@@ -467,8 +475,8 @@ class _Desktop7State extends State<Desktop7> {
     );
   }
 
-  Widget _buildFirstFeatureRow(
-      String imagePath, String title, String description) {
+  Widget _buildFirstFeatureRow(String imagePath, String title,
+      String description, String? secondImagePath, double? height) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 768;
 
@@ -491,13 +499,17 @@ class _Desktop7State extends State<Desktop7> {
                       horizontal: isMobile ? 12 : 16,
                       vertical: isMobile ? 6 : 8),
                   decoration: BoxDecoration(
-                    color: AppColor.font1,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(isMobile ? 15 : 20),
+                    border: Border.all(
+                      color: AppColor.font1,
+                      width: 1,
+                    ),
                   ),
                   child: Text(
                     '첫번째',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColor.font1,
                       fontSize: isMobile ? 12 : 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -521,12 +533,22 @@ class _Desktop7State extends State<Desktop7> {
                   ),
                 ),
                 SizedBox(height: isMobile ? 20 : 0),
+                if (secondImagePath != null) ...[
+                  Container(
+                    width: isMobile ? screenWidth * 0.8 : 624,
+                    height: height ?? 500,
+                    child: Image.asset(
+                      secondImagePath,
+                      fit: isMobile ? BoxFit.fitWidth : BoxFit.contain,
+                    ),
+                  ),
+                ],
                 Container(
                   width: isMobile ? screenWidth * 0.8 : 624,
-                  height: isMobile ? 300 : 500,
+                  height: height ?? 500,
                   child: Image.asset(
                     imagePath,
-                    fit: BoxFit.contain,
+                    fit: isMobile ? BoxFit.fitWidth : BoxFit.contain,
                   ),
                 ),
               ],
@@ -610,15 +632,14 @@ class _Desktop7State extends State<Desktop7> {
               padding: EdgeInsets.only(
                 top: isMobile ? 40 : 120,
               ),
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height,
-              ),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'AI 챗봇과의 대화를 통한 상담 내용 구체화, 누가 활용하면 좋은가요?',
+                    isMobile
+                        ? 'AI 챗봇과의 대화를 통한 상담 내용 구체화,\n누가 활용하면 좋은가요?'
+                        : 'AI 챗봇과의 대화를 통한 상담 내용 구체화, 누가 활용하면 좋은가요?',
                     style: TextStyle(
                         fontSize: isMobile ? 14 : 20,
                         fontWeight: FontWeight.w500,
@@ -721,31 +742,29 @@ class _Desktop7State extends State<Desktop7> {
                     ),
                   ),
                   // 탭에 따른 내용 변경 (선으로 연결)
-                  Expanded(
-                    child: Container(
-                      width: isMobile ? screenWidth * 0.9 : 1200,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(isMobile ? 15 : 20),
-                          bottomRight: Radius.circular(isMobile ? 15 : 20),
-                        ),
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.3),
-                          width: 1,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
+                  Container(
+                    width: isMobile ? screenWidth * 0.9 : 1200,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(isMobile ? 15 : 20),
+                        bottomRight: Radius.circular(isMobile ? 15 : 20),
                       ),
-                      child: isTeacherSelected
-                          ? _buildTeacherContent()
-                          : _buildStudentContent(),
+                      border: Border.all(
+                        color: Colors.grey.withOpacity(0.3),
+                        width: 1,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
+                    child: isTeacherSelected
+                        ? _buildTeacherContent()
+                        : _buildStudentContent(),
                   ),
                   // 탭에 따른 대상자 컨테이너 (바깥에 배치)
                   SizedBox(height: isMobile ? 20 : 30),

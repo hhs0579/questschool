@@ -86,74 +86,82 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
           // 고정 버튼 (중앙 하단)
           Positioned(
             bottom: isMobile ? 20 : 40,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Container(
-                width: isMobile ? screenWidth * 0.9 : 950,
-                height: isMobile ? 120 : 95,
-                decoration: BoxDecoration(
-                  color: const Color(0xff414042).withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
+            left: isMobile ? 20 : 0,
+            right: isMobile ? null : 0,
+            child: isMobile
+                ? Container(
+                    width: screenWidth * 0.75,
+                    height: 110,
+                    decoration: BoxDecoration(
+                      color: const Color(0xff414042).withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.15),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(isMobile ? 15.0 : 20.0),
-                  child: isMobile
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '편리하고 안전하게 상담기록 관리하기',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.center,
+                    child: Padding(
+                      padding: EdgeInsets.all(13.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '편리하고 안전하게 상담기록 관리하기',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
                             ),
-                            SizedBox(height: 12),
-                            InkWell(
-                              onTap: () {
-                                // 페이지 9번(desktop9)으로 스크롤 이동
-                                final targetIndex =
-                                    8; // 0-based index이므로 8번이 9번째 페이지
-                                final targetOffset =
-                                    _calculateOffsetForPage(targetIndex);
-                                _scrollController.animateTo(
-                                  targetOffset,
-                                  duration: Duration(milliseconds: 800),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: AppColor.font1,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '가입 신청하기&학교코드 신청하기',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 10),
+                          InkWell(
+                            onTap: () =>
+                                _launchURL('https://questschoolmall.kr/code'),
+                            child: Container(
+                              width: double.infinity,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: AppColor.font1,
+                                borderRadius: BorderRadius.circular(13),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '가입 신청하기',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        )
-                      : Row(
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: Container(
+                      width: 950,
+                      height: 95,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff414042).withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.15),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
@@ -168,18 +176,8 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                             ),
                             SizedBox(width: 20),
                             InkWell(
-                              onTap: () {
-                                // 페이지 9번(desktop9)으로 스크롤 이동
-                                final targetIndex =
-                                    8; // 0-based index이므로 8번이 9번째 페이지
-                                final targetOffset =
-                                    _calculateOffsetForPage(targetIndex);
-                                _scrollController.animateTo(
-                                  targetOffset,
-                                  duration: Duration(milliseconds: 800),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
+                              onTap: () =>
+                                  _launchURL('https://questschoolmall.kr/code'),
                               child: Container(
                                 width: 254,
                                 height: 52,
@@ -201,6 +199,37 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                             ),
                           ],
                         ),
+                      ),
+                    ),
+                  ),
+          ),
+          // 카카오톡 채널 버튼 (플로팅바 오른쪽)
+          Positioned(
+            bottom: isMobile ? 20 : 55,
+            right: isMobile ? 20 : 200,
+            child: GestureDetector(
+              onTap: () => _launchURL('https://pf.kakao.com/_KAQxhb'),
+              child: Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppColor.font1,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/chat.png',
+                    width: 24,
+                    height: 24,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
@@ -255,7 +284,7 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       } else if (i == 4) {
         pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.1 : 2400;
       } else if (i == 5) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1300;
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1700;
       } else if (i == 6) {
         pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.2 : 2600;
       } else if (i == 7) {
@@ -294,9 +323,9 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1300;
     } else if (index == 6) {
       // desktop7 - 가장 긴 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.2 : 2600;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 5.4 : 2600;
     } else if (index == 7) {
-      // desktop9 - 가장 긴 콘텐츠
+      // desktop8 - 가장 긴 콘텐츠
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
     } else if (index == 8) {
       // desktop9 - 가장 긴 콘텐츠

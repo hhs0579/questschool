@@ -57,12 +57,14 @@ class _Desktop1State extends State<Desktop1> {
                       // 전체 화면을 채우는 SVG 배경
                       child: Padding(
                         padding: EdgeInsets.only(
-                          right: isMobile ? 20 : 100,
-                          left: isMobile ? 20 : 0,
+                          right: isMobile ? 0 : 40,
+                          left: isMobile ? 0 : 40,
                         ),
                         child: Image.asset(
-                          'assets/images/desk1.png', // SVG 파일 경로
-                          fit: BoxFit.contain,
+                          isMobile
+                              ? 'assets/images/desk1-1.png'
+                              : 'assets/images/desk1.png', // SVG 파일 경로
+                          fit: isMobile ? BoxFit.contain : BoxFit.contain,
                           alignment: Alignment.center,
                           width: isMobile
                               ? constraints.maxWidth * 0.8
@@ -78,7 +80,7 @@ class _Desktop1State extends State<Desktop1> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: isMobile ? 40 : 89,
+                            height: isMobile ? 40 : 30,
                           ),
                           Container(
                             width: isMobile ? screenWidth * 0.6 : 259,

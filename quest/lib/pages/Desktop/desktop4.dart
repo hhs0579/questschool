@@ -131,7 +131,8 @@ class _Desktop4State extends State<Desktop4>
                     ),
                     isMobile
                         ? Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Column(
                               children: [
                                 _buildDesktopCard(
