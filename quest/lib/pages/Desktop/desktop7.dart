@@ -78,7 +78,7 @@ class _Desktop7State extends State<Desktop7> {
             'AI 챗봇과의 대화를 통한\n상담 내용 구체화',
             '퀘스트스쿨에 상담 주제 설정을 위한 \'대화하기\' 기능이 추가되었어요! AI 챗봇과의 대화를 통해 자연스럽게\n현재 학생에게 필요한 상담 주제를 찾을 수 있어요.',
             isMobile ? 'assets/images/7-1-2.png' : null,
-            isMobile ? 700.0 : null,
+            isMobile ? 600.0 : null,
           ),
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
@@ -88,7 +88,7 @@ class _Desktop7State extends State<Desktop7> {
             '자유롭게 상세 내용을 작성할수도 있어요.',
             true,
             '두번째',
-            isMobile ? 700.0 : null,
+            isMobile ? 600.0 : null,
           ),
           SizedBox(height: isMobile ? 20 : 30),
           _buildFeatureRow(
@@ -98,7 +98,7 @@ class _Desktop7State extends State<Desktop7> {
             '실시할 수 있어요!\n(마이페이지 메뉴, 선택사항)',
             true,
             '세번째',
-            isMobile ? 700.0 : null,
+            isMobile ? 600.0 : null,
           ),
         ],
       ),
@@ -630,6 +630,8 @@ class _Desktop7State extends State<Desktop7> {
           builder: (context, constraints) {
             return Container(
               padding: EdgeInsets.only(
+                left: isMobile ? 15 : 0,
+                right: isMobile ? 15 : 0,
                 top: isMobile ? 40 : 120,
               ),
               width: MediaQuery.of(context).size.width,

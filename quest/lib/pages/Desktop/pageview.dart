@@ -119,8 +119,13 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                           ),
                           SizedBox(height: 10),
                           InkWell(
-                            onTap: () =>
-                                _launchURL('https://questschoolmall.kr/code'),
+                            onTap: () {
+                              _scrollController.animateTo(
+                                _calculateOffsetForPage(8), // desktop9는 인덱스 8
+                                duration: Duration(milliseconds: 1000),
+                                curve: Curves.easeInOut,
+                              );
+                            },
                             child: Container(
                               width: double.infinity,
                               height: 40,
@@ -176,8 +181,13 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
                             ),
                             SizedBox(width: 20),
                             InkWell(
-                              onTap: () =>
-                                  _launchURL('https://questschoolmall.kr/code'),
+                              onTap: () {
+                                _scrollController.animateTo(
+                                  _calculateOffsetForPage(8), // desktop9는 인덱스 8
+                                  duration: Duration(milliseconds: 1000),
+                                  curve: Curves.easeInOut,
+                                );
+                              },
                               child: Container(
                                 width: 254,
                                 height: 52,
@@ -282,11 +292,11 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       } else if (i == 3) {
         pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.2 : 1080;
       } else if (i == 4) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.1 : 2400;
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.0 : 2400;
       } else if (i == 5) {
         pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1700;
       } else if (i == 6) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.2 : 2600;
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 5.5 : 2600;
       } else if (i == 7) {
         pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
       } else if (i == 8) {
@@ -317,13 +327,13 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.2 : 1080;
     } else if (index == 4) {
       // desktop5 - 더 긴 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.1 : 2400;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.0 : 2400;
     } else if (index == 5) {
       // desktop6 - 중간 길이 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1300;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.2 : 1300;
     } else if (index == 6) {
       // desktop7 - 가장 긴 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 5.4 : 2600;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 5.5 : 2600;
     } else if (index == 7) {
       // desktop8 - 가장 긴 콘텐츠
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;

@@ -70,12 +70,13 @@ class _Desktop4State extends State<Desktop4>
               constraints: BoxConstraints(
                 minHeight: MediaQuery.of(context).size.height,
               ),
-              width: MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width * 0.98,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(height: 20),
                     Text(
                       '교내 진로진학 상담을 간편하고 신속하게!',
                       style: TextStyle(
@@ -94,7 +95,7 @@ class _Desktop4State extends State<Desktop4>
                           TextSpan(
                             text: '이제 ',
                             style: TextStyle(
-                              fontSize: isMobile ? 28 : 48,
+                              fontSize: isMobile ? 25 : 48,
                               color: AppColor.primary,
                               fontWeight: FontWeight.w500,
                             ),
@@ -102,7 +103,7 @@ class _Desktop4State extends State<Desktop4>
                           TextSpan(
                             text: '퀘스트스쿨',
                             style: TextStyle(
-                              fontSize: isMobile ? 28 : 48,
+                              fontSize: isMobile ? 25 : 48,
                               color: AppColor.font1,
                               fontWeight: FontWeight.bold,
                             ),
@@ -110,7 +111,7 @@ class _Desktop4State extends State<Desktop4>
                           TextSpan(
                             text: '이 ',
                             style: TextStyle(
-                              fontSize: isMobile ? 28 : 48,
+                              fontSize: isMobile ? 25 : 48,
                               color: AppColor.primary,
                               fontWeight: FontWeight.w500,
                             ),
@@ -118,7 +119,7 @@ class _Desktop4State extends State<Desktop4>
                           TextSpan(
                             text: '도와드릴게요!',
                             style: TextStyle(
-                              fontSize: isMobile ? 28 : 48,
+                              fontSize: isMobile ? 25 : 48,
                               color: AppColor.primary,
                               fontWeight: FontWeight.w500,
                             ),

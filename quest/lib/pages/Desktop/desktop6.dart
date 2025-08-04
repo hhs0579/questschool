@@ -265,7 +265,7 @@ class _Desktop6State extends State<Desktop6> {
                               isMobile ? 40 : (screenWidth < 1200 ? 30 : 40)),
                       Container(
                         height:
-                            isMobile ? 160 : (screenWidth < 1200 ? 200 : 240),
+                            isMobile ? 180 : (screenWidth < 1200 ? 220 : 260),
                         child: SingleChildScrollView(
                           controller: _scrollController,
                           scrollDirection: Axis.horizontal,
@@ -274,12 +274,12 @@ class _Desktop6State extends State<Desktop6> {
                             children: [
                               ...reviews
                                   .map((review) => _buildReviewCard(
-                                      review, isMobile ? 160 : 220))
+                                      review, isMobile ? 180 : 240))
                                   .toList(),
                               ...reviews
                                   .take(3)
                                   .map((review) => _buildReviewCard(
-                                      review, isMobile ? 160 : 220))
+                                      review, isMobile ? 180 : 240))
                                   .toList(),
                             ],
                           ),
@@ -288,7 +288,7 @@ class _Desktop6State extends State<Desktop6> {
                       SizedBox(height: 12),
                       Container(
                         height:
-                            isMobile ? 160 : (screenWidth < 1200 ? 200 : 240),
+                            isMobile ? 180 : (screenWidth < 1200 ? 220 : 260),
                         child: SingleChildScrollView(
                           controller: _scrollController2,
                           scrollDirection: Axis.horizontal,
@@ -298,11 +298,11 @@ class _Desktop6State extends State<Desktop6> {
                               ...reviews.reversed
                                   .take(3)
                                   .map((review) => _buildReviewCard(
-                                      review, isMobile ? 160 : 220))
+                                      review, isMobile ? 180 : 240))
                                   .toList(),
                               ...reviews.reversed
                                   .map((review) => _buildReviewCard(
-                                      review, isMobile ? 160 : 200))
+                                      review, isMobile ? 180 : 240))
                                   .toList(),
                             ],
                           ),
