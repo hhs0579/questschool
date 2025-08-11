@@ -36,7 +36,8 @@ class _Desktop2State extends State<Desktop2>
       // ignore: undefined_prefixed_name
       ui.platformViewRegistry.registerViewFactory(
         'youtube-player-desktop2',
-        (int viewId) => _createIframe('LUWbfI17_UU'),
+        (int viewId) =>
+            _createIframe('aDBPYNWheDc'), // LUWbfI17_UU에서 aDBPYNWheDc로 변경
       );
     } catch (e) {
       print('iframe 등록 실패: $e');
@@ -216,8 +217,8 @@ class _Desktop2State extends State<Desktop2>
                 ),
                 SizedBox(height: 16),
                 ElevatedButton.icon(
-                  onPressed: () =>
-                      _launchURL('https://www.youtube.com/watch?v=LUWbfI17_UU'),
+                  onPressed: () => _launchURL(
+                      'https://www.youtube.com/watch?v=aDBPYNWheDc'), // LUWbfI17_UU에서 aDBPYNWheDc로 변경
                   icon: Icon(Icons.open_in_new),
                   label: Text('YouTube에서 보기'),
                   style: ElevatedButton.styleFrom(
@@ -234,7 +235,7 @@ class _Desktop2State extends State<Desktop2>
   }
 
   Widget _buildPlayButton() {
-    const videoId = 'LUWbfI17_UU';
+    const videoId = 'aDBPYNWheDc'; // LUWbfI17_UU에서 aDBPYNWheDc로 변경
     const thumbnailUrl =
         'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
 

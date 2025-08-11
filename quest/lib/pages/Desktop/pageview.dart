@@ -267,7 +267,8 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       case 6:
         return Desktop7();
       case 7:
-        return Desktop8();
+        return Desktop8(
+            scrollController: _scrollController); // ScrollController 전달
       case 8:
         return Desktop9();
       default:
@@ -286,19 +287,22 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
       double pageHeight = isMobile ? MediaQuery.of(context).size.height : 1080;
 
       if (i == 1) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 0.5 : 1080;
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 0.6 : 1080;
       } else if (i == 2) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.8 : 1080;
+        pageHeight =
+            isMobile ? MediaQuery.of(context).size.height * 1.75 : 1080;
       } else if (i == 3) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.2 : 1080;
+        pageHeight =
+            isMobile ? MediaQuery.of(context).size.height * 2.2 : 1080;
       } else if (i == 4) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.0 : 2400;
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.9 : 2400;
       } else if (i == 5) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.1 : 1700;
+        pageHeight =
+            isMobile ? MediaQuery.of(context).size.height * 1.25 : 1700;
       } else if (i == 6) {
         pageHeight = isMobile ? MediaQuery.of(context).size.height * 5.5 : 2600;
       } else if (i == 7) {
-        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.35 : 1080;
       } else if (i == 8) {
         pageHeight = isMobile ? MediaQuery.of(context).size.height * 3 : 2400;
       }
@@ -318,25 +322,25 @@ class _SmoothPageViewScreenState extends State<SmoothPageViewScreen> {
 
     if (index == 1) {
       // desktop2 - 비디오 페이지 (모바일에서 짧게)
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 0.5 : 1080;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 0.6 : 1080;
     } else if (index == 2) {
       // desktop3 - 텍스트와 카드 페이지
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.8 : 1080;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.75 : 1080;
     } else if (index == 3) {
       // desktop4 - 카드 세로 배치 페이지
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.2 : 1080;
     } else if (index == 4) {
       // desktop5 - 더 긴 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 3.0 : 2400;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.9 : 2400;
     } else if (index == 5) {
       // desktop6 - 중간 길이 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.2 : 1300;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.25 : 1300;
     } else if (index == 6) {
       // desktop7 - 가장 긴 콘텐츠
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 5.5 : 2600;
     } else if (index == 7) {
       // desktop8 - 가장 긴 콘텐츠
-      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
+      pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.35 : 1080;
     } else if (index == 8) {
       // desktop9 - 가장 긴 콘텐츠
       pageHeight = isMobile ? MediaQuery.of(context).size.height * 3 : 2400;

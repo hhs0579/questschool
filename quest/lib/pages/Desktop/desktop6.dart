@@ -133,6 +133,8 @@ class _Desktop6State extends State<Desktop6> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment:
+                        MainAxisAlignment.center, // 전체 컨텐츠를 화면 중앙에 배치
                     children: [
                       Text(
                         '실제 사용 후기',
@@ -285,7 +287,7 @@ class _Desktop6State extends State<Desktop6> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: 20),
                       Container(
                         height:
                             isMobile ? 180 : (screenWidth < 1200 ? 220 : 260),

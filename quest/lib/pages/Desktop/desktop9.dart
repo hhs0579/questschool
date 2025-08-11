@@ -436,6 +436,7 @@ class _Desktop9State extends State<Desktop9> {
                           right: isMobile ? 20 : 300),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             '학교 코드 조회',
@@ -1098,6 +1099,20 @@ class _Desktop9State extends State<Desktop9> {
                                 Row(
                                   children: [
                                     GestureDetector(
+                                      onTap: () => _launchURL(
+                                          'https://youtu.be/Poing1YHfC8?si=DbL5zHKsc343Klna'),
+                                      child: Text(
+                                        '튜토리얼 보러가기',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    GestureDetector(
                                       onTap: () =>
                                           _launchURL('https://sjgod.kr/'),
                                       child: Text(
@@ -1186,6 +1201,21 @@ class _Desktop9State extends State<Desktop9> {
                                   children: [
                                     Row(
                                       children: [
+                                        GestureDetector(
+                                          onTap: () => _launchURL(
+                                              'https://youtu.be/Poing1YHfC8?si=DbL5zHKsc343Klna'),
+                                          child: Text(
+                                            '튜토리얼 보러가기',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey[700],
+                                              fontWeight: FontWeight.w700,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 40),
                                         GestureDetector(
                                           onTap: () =>
                                               _launchURL('https://sjgod.kr/'),

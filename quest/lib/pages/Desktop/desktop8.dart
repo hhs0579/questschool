@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quest/components/color.dart';
 
 class Desktop8 extends StatefulWidget {
-  const Desktop8({super.key});
+  final ScrollController? scrollController; // ScrollController 매개변수 추가
+
+  const Desktop8({super.key, this.scrollController});
 
   @override
   State<Desktop8> createState() => _Desktop8State();
@@ -11,6 +13,15 @@ class Desktop8 extends StatefulWidget {
 class _Desktop8State extends State<Desktop8> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // 부모 위젯에서 ScrollController를 찾기
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // PrimaryScrollController.of(context) ?? ScrollController(); // 이 부분은 제거됨
+    });
+  }
 
   @override
   void dispose() {
@@ -59,7 +70,7 @@ class _Desktop8State extends State<Desktop8> {
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 50), // 딱 50만 띄움!
+                          SizedBox(height: 80), // 딱 50만 띄움!
                           Expanded(
                             child: PageView(
                               controller: _pageController,
@@ -77,30 +88,11 @@ class _Desktop8State extends State<Desktop8> {
                               ],
                             ),
                           ),
-                          // 인디케이터
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 18),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(4, (index) {
-                                return Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 8),
-                                  width: 12,
-                                  height: 12,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: _currentPage == index
-                                        ? AppColor.font1
-                                        : Colors.grey[300],
-                                  ),
-                                );
-                              }),
-                            ),
-                          ),
-                          // 네비게이션 버튼
+                          // 인디케이터와 네비게이션 버튼을 하나로 합치기
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              // 왼쪽 화살표
                               GestureDetector(
                                 onTap: _previousPage,
                                 child: Icon(
@@ -111,6 +103,23 @@ class _Desktop8State extends State<Desktop8> {
                                   size: 24,
                                 ),
                               ),
+                              // 중앙에 인디케이터
+                              Row(
+                                children: List.generate(4, (index) {
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 4),
+                                    width: 8,
+                                    height: 8,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: _currentPage == index
+                                          ? AppColor.font1
+                                          : Colors.grey[300],
+                                    ),
+                                  );
+                                }),
+                              ),
+                              // 오른쪽 화살표
                               GestureDetector(
                                 onTap: _nextPage,
                                 child: Icon(
@@ -143,7 +152,8 @@ class _Desktop8State extends State<Desktop8> {
                           Expanded(
                             child: Center(
                               child: Container(
-                                width: 1600,
+                                width: MediaQuery.of(context).size.width *
+                                    0.9, // 고정 1600 대신 화면 너비의 90%로 변경
                                 child: PageView(
                                   controller: _pageController,
                                   physics: NeverScrollableScrollPhysics(),
@@ -222,6 +232,17 @@ class _Desktop8State extends State<Desktop8> {
         step: 0,
         image: 'assets/images/8-1.png',
         button: '학교코드 신청하기',
+        onButtonTap: () {
+          // 스크롤로 9번 페이지로 이동 (조금 위로 올림)
+          if (widget.scrollController?.hasClients == true) {
+            final targetOffset = _calculateOffsetForPage(8) - 100; // 100픽셀 위로
+            widget.scrollController!.animateTo(
+              targetOffset,
+              duration: Duration(milliseconds: 1000),
+              curve: Curves.easeInOut,
+            );
+          }
+        },
       );
   Widget _buildPageMobile2() => _buildMobileCommon(
         title: '가입방법 02',
@@ -256,6 +277,7 @@ class _Desktop8State extends State<Desktop8> {
     required int step,
     required String image,
     String? button,
+    VoidCallback? onButtonTap, // 버튼 탭 콜백 추가
   }) {
     final screenWidth = MediaQuery.of(context).size.width;
     final steps = ["퀘스트스쿨 학교코드 조회", "사용신청 접수", "퀘스트스쿨 회원가입", "관리자 승인"];
@@ -288,19 +310,24 @@ class _Desktop8State extends State<Desktop8> {
         SizedBox(height: 18),
         // 버튼
         if (button != null)
-          Container(
-            width: 200,
-            height: 44,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15), color: AppColor.font1),
-            child: Center(
-              child: Text(
-                button,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-                textAlign: TextAlign.center,
+          GestureDetector(
+            // GestureDetector로 감싸기
+            onTap: onButtonTap, // 탭 이벤트 연결
+            child: Container(
+              width: 200,
+              height: 44,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: AppColor.font1),
+              child: Center(
+                child: Text(
+                  button,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
@@ -348,6 +375,41 @@ class _Desktop8State extends State<Desktop8> {
     );
   }
 
+  // 특정 페이지로 스크롤하기 위한 오프셋 계산 함수 추가
+  double _calculateOffsetForPage(int targetIndex) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
+
+    double offset = 0;
+
+    for (int i = 0; i < targetIndex; i++) {
+      double pageHeight = isMobile ? MediaQuery.of(context).size.height : 1080;
+
+      if (i == 1) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 0.5 : 1080;
+      } else if (i == 2) {
+        pageHeight =
+            isMobile ? MediaQuery.of(context).size.height * 1.75 : 1080;
+      } else if (i == 3) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.1 : 1080;
+      } else if (i == 4) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 2.9 : 2400;
+      } else if (i == 5) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.2 : 1700;
+      } else if (i == 6) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 5.5 : 2600;
+      } else if (i == 7) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 1.4 : 1080;
+      } else if (i == 8) {
+        pageHeight = isMobile ? MediaQuery.of(context).size.height * 3 : 2400;
+      }
+
+      offset += pageHeight;
+    }
+
+    return offset;
+  }
+
   // PC 버전 빌더 (기존 Row 구조 그대로, 내용만 파라미터화)
   Widget _buildPagePC({
     required String title,
@@ -358,6 +420,32 @@ class _Desktop8State extends State<Desktop8> {
     String? buttonText,
   }) {
     final steps = ["퀘스트스쿨 학교코드 조회", "사용신청 접수", "퀘스트스쿨 회원가입", "관리자 승인"];
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // 화면 너비에 따라 간격과 이미지 크기 조정
+    double spacing = 400;
+    double imageSize = 640;
+
+    if (screenWidth < 1600) {
+      spacing = 250;
+      imageSize = 580;
+    }
+    if (screenWidth < 1400) {
+      spacing = 150;
+      imageSize = 540;
+    }
+    if (screenWidth < 1200) {
+      spacing = 80;
+      imageSize = 500;
+    }
+    if (screenWidth < 1000) {
+      spacing = 30;
+      imageSize = 450;
+    }
+    if (screenWidth < 900) {
+      spacing = 10;
+      imageSize = 400;
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -392,19 +480,34 @@ class _Desktop8State extends State<Desktop8> {
             ),
             SizedBox(height: 40),
             if (buttonText != null)
-              Container(
-                width: 200,
-                height: 54,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: AppColor.font1),
-                child: Center(
-                  child: Text(
-                    buttonText,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+              GestureDetector(
+                // PC 버전도 GestureDetector로 감싸기
+                onTap: () {
+                  // 스크롤로 9번 페이지로 이동 (조금 위로 올림)
+                  if (widget.scrollController?.hasClients == true) {
+                    final targetOffset =
+                        _calculateOffsetForPage(8) - 200; // 100픽셀 위로
+                    widget.scrollController!.animateTo(
+                      targetOffset,
+                      duration: Duration(milliseconds: 1000),
+                      curve: Curves.easeInOut,
+                    );
+                  }
+                },
+                child: Container(
+                  width: 200,
+                  height: 54,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: AppColor.font1),
+                  child: Center(
+                    child: Text(
+                      buttonText,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
               ),
@@ -447,11 +550,11 @@ class _Desktop8State extends State<Desktop8> {
             )
           ],
         ),
-        SizedBox(width: 400),
+        SizedBox(width: spacing), // 반응형 간격 적용
         Container(
-          width: 640,
-          height: 640,
-          child: Image.asset(imagePath),
+          width: imageSize, // 반응형 이미지 크기 적용
+          height: imageSize, // 반응형 이미지 크기 적용
+          child: Image.asset(imagePath, fit: BoxFit.contain),
         ),
       ],
     );

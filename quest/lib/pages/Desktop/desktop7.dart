@@ -76,7 +76,7 @@ class _Desktop7State extends State<Desktop7> {
           _buildFirstFeatureRow(
             isMobile ? 'assets/images/7-1-1.png' : 'assets/images/7-1.png',
             'AI 챗봇과의 대화를 통한\n상담 내용 구체화',
-            '퀘스트스쿨에 상담 주제 설정을 위한 \'대화하기\' 기능이 추가되었어요! AI 챗봇과의 대화를 통해 자연스럽게\n현재 학생에게 필요한 상담 주제를 찾을 수 있어요.',
+            '퀘스트스쿨에 상담 주제 설정을 위한 \'대화하기\' 기능이\n추가되었어요! AI 챗봇과의 대화를 통해 자연스럽게\n현재 학생에게 필요한 상담 주제를 찾을 수 있어요.',
             isMobile ? 'assets/images/7-1-2.png' : null,
             isMobile ? 600.0 : null,
           ),
@@ -94,8 +94,8 @@ class _Desktop7State extends State<Desktop7> {
           _buildFeatureRow(
             'assets/images/7-3.png',
             '진로심리검사\n실시와 요약',
-            '상담 시작 전, 상담 시간을 더욱 풍성하고 실속 있게\n만들어 줄 진로심리검사를 퀘스트스쿨에서',
-            '실시할 수 있어요!\n(마이페이지 메뉴, 선택사항)',
+            '상담 시작 전, 상담 시간을 더욱 풍성하고\n실속 있게 만들어 줄 진로심리검사를',
+            '퀘스트스쿨에서 실시할 수 있어요!\n(마이페이지 메뉴-선택사항)',
             true,
             '세번째',
             isMobile ? 600.0 : null,

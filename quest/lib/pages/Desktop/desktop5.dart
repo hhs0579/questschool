@@ -30,6 +30,7 @@ class _Desktop5State extends State<Desktop5> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center, // 전체 컨텐츠를 화면 중앙에 배치
               children: [
                 SizedBox(height: screenWidth < 768 ? 20 : 80),
                 _buildTitleSection(screenWidth),

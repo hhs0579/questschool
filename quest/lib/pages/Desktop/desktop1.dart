@@ -60,19 +60,70 @@ class _Desktop1State extends State<Desktop1> {
                           right: isMobile ? 0 : 40,
                           left: isMobile ? 0 : 40,
                         ),
-                        child: Image.asset(
-                          isMobile
-                              ? 'assets/images/desk1-1.png'
-                              : 'assets/images/desk1.png', // SVG 파일 경로
-                          fit: isMobile ? BoxFit.contain : BoxFit.contain,
-                          alignment: Alignment.center,
-                          width: isMobile
-                              ? constraints.maxWidth * 0.8
-                              : constraints.maxWidth * 0.6,
-                          height: isMobile
-                              ? constraints.maxHeight * 0.6
-                              : constraints.maxHeight * 0.7,
-                        ),
+                        child: isMobile
+                            ? Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // 아래쪽에 pc1-1.png 배치
+                                  Positioned(
+                                    bottom: 0,
+                                    child: Image.asset(
+                                      'assets/images/pc1-1.png',
+                                      fit: BoxFit.contain,
+                                      width: constraints.maxWidth * 0.8,
+                                      height: constraints.maxHeight * 0.6,
+                                    ),
+                                  ),
+                                  // 위쪽에 pc1-2.png 배치 (더 위에 오도록)
+                                  Positioned(
+                                    top: -20, // 약간 더 위로 이동
+                                    child: Image.asset(
+                                      'assets/images/pc1-2.png',
+                                      fit: BoxFit.contain,
+                                      width: constraints.maxWidth * 0.8,
+                                      height: constraints.maxHeight * 0.6,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // PC 배경에 pc1-1.png 전체 화면으로 배치
+                                  Positioned.fill(
+                                    child: Image.asset(
+                                      'assets/images/1-1.png',
+                                      fit: BoxFit.contain,
+                                      alignment: Alignment.center,
+                                    ),
+                                  ),
+                                  // PC 맨 밑 중앙에 pc1-2.png 배치 (해상도 줄일 때 아래로 잘림)
+                                  Positioned(
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: Center(
+                                      child: Image.asset(
+                                        'assets/images/1-2.png',
+                                        fit: BoxFit.contain,
+                                        alignment: Alignment.bottomCenter,
+                                        width: constraints.maxWidth *
+                                            (screenWidth < 1200
+                                                ? 0.4
+                                                : screenWidth < 1600
+                                                    ? 0.7
+                                                    : 0.6),
+                                        height: constraints.maxHeight *
+                                            (screenWidth < 1200
+                                                ? 0.3
+                                                : screenWidth < 1600
+                                                    ? 0.4
+                                                    : 0.5),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                     Center(
@@ -135,29 +186,36 @@ class _Desktop1State extends State<Desktop1> {
                           SizedBox(
                             height: isMobile ? 20 : 30,
                           ),
-                          InkWell(
-                            onTap: () => _launchURL(
-                                'https://teacher.questschool.kr/login'),
-                            child: Container(
-                              height: isMobile ? 48 : 56,
-                              width: isMobile ? 180 : 180,
-                              decoration: BoxDecoration(
-                                color: AppColor.font1,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      '퀘스트스쿨 바로가기',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: isMobile ? 18 : 18,
-                                          fontWeight: FontWeight.w600),
+                          // PC에서 해상도가 낮을 때 버튼 위치 조정
+                          Container(
+                            margin: EdgeInsets.only(
+                              bottom:
+                                  isMobile ? 0 : constraints.maxHeight * 0.05,
+                            ),
+                            child: InkWell(
+                              onTap: () => _launchURL(
+                                  'https://teacher.questschool.kr/login'),
+                              child: Container(
+                                height: isMobile ? 48 : 56,
+                                width: isMobile ? 180 : 180,
+                                decoration: BoxDecoration(
+                                  color: AppColor.font1,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        '퀘스트스쿨 바로가기',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: isMobile ? 18 : 18,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
