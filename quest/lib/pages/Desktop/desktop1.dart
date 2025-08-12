@@ -31,6 +31,7 @@ class _Desktop1State extends State<Desktop1> {
 
     return RepaintBoundary(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: LayoutBuilder(
           builder: (context, constraints) {
             return Container(

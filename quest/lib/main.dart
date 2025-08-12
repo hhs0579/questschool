@@ -24,9 +24,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'QUEST SCHOOL',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
           useMaterial3: true,
           fontFamily: 'Pretendard',
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.black)
+              .copyWith(background: Colors.white),
         ),
         scrollBehavior: MyCustomScrollBehavior(),
         home: MainPage());
